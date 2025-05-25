@@ -10,9 +10,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SeatVO {
-    private Long seatId;
+    private int seatId;
     private String seatCode;
     private Boolean isReserved;
 
-    private Long scheduleId;
+    private int scheduleId;
+
+
+    @Override
+    public String toString() {
+        return "SeatVO{" +
+                "seatId=" + seatId +
+                ", scheduleId=" + scheduleId +
+                ", seatCode='" + seatCode + '\'' +
+                ", isReserved=" + isReserved +
+                '}';
+    }
 }
