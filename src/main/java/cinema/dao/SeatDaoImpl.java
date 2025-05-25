@@ -61,6 +61,25 @@ public class SeatDaoImpl implements SeatDao {
         return list;
     }
 
+    @Override
+    public SeatVO findById(int seatId) {
+        String sql = "SELECT * FROM seat WHERE seat_id = ?";
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, seatId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return map(rs);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("좌석 ID로 조회 실패: " + e.getMessage(), e);
+        }
+
+        return null; // 해당 ID가 없을 경우 null 반환
+    }
     private SeatVO map(ResultSet rs) throws SQLException {
         return SeatVO.builder()
                 .seatId(rs.getInt("seat_id"))
