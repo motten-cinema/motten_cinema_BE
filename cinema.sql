@@ -155,4 +155,4 @@ INSERT INTO Payment (payment_id, reservation_id, use_cash_receipt,phone_number,p
 VALUES
     (1, 'FD289', TRUE, '01012345678', '2025-05-19 13:16:00');
 
-select * from seat;
+select * from Reservation_Seat;
