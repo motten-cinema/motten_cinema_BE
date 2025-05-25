@@ -35,17 +35,13 @@ public class ReservationSeatDaoImpl implements ReservationSeatDao{
     public List<ReservationSeatVO> findByReservationId(String reservationId) {
         List<ReservationSeatVO> list = new ArrayList<>();
         String sql = "SELECT * FROM reservation_seat WHERE reservation_id = ?";
-        try {
-            conn = JDBCUtil.getConnection();
-            pstmt = conn.prepareStatement(sql);
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, reservationId);
-            rs = pstmt.executeQuery();
-            while (rs.next()) {
-                list.add(ReservationSeatVO.builder()
-                        .reservationSeatId(rs.getInt("reservation_seat_id"))
-                        .reservationId(rs.getString("reservation_id"))
-                        .seatId(rs.getInt("seat_id"))
-                        .build());
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(map(rs));
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException("예매 좌석 조회 실패: " + e.getMessage(), e);
@@ -64,5 +60,12 @@ public class ReservationSeatDaoImpl implements ReservationSeatDao{
         } catch (SQLException e) {
             throw new RuntimeException("예매 좌석 삭제 실패: " + e.getMessage(), e);
         }
+    }
+    private ReservationSeatVO map(ResultSet rs) throws SQLException {
+        return ReservationSeatVO.builder()
+                .reservationSeatId(rs.getInt("reservation_seat_id"))
+                .reservationId(rs.getString("reservation_id"))
+                .seatId(rs.getInt("seat_id"))
+                .build();
     }
 }

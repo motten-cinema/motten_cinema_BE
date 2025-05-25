@@ -47,22 +47,26 @@ public class SeatDaoImpl implements SeatDao {
     public List<SeatVO> findByScheduleId(int scheduleId) {
         List<SeatVO> list = new ArrayList<>();
         String sql = "SELECT * FROM seat WHERE schedule_id = ?";
-        try{
-            conn = JDBCUtil.getConnection();
-            pstmt = conn.prepareStatement(sql);
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, scheduleId);
-            rs = pstmt.executeQuery();
-            while (rs.next()) {
-                list.add(SeatVO.builder()
-                        .seatId(rs.getInt("seat_id"))
-                        .scheduleId(rs.getInt("schedule_id"))
-                        .seatCode(rs.getString("seat_code"))
-                        .isReserved(rs.getBoolean("is_reserved"))
-                        .build());
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(map(rs));
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return list;
+    }
+
+    private SeatVO map(ResultSet rs) throws SQLException {
+        return SeatVO.builder()
+                .seatId(rs.getInt("seat_id"))
+                .scheduleId(rs.getInt("schedule_id"))
+                .seatCode(rs.getString("seat_code"))
+                .isReserved(rs.getBoolean("is_reserved"))
+                .build();
     }
 }
