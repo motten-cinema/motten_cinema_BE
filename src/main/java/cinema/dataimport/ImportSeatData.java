@@ -15,7 +15,7 @@ public class ImportSeatData {
     public static void main(String[] args) throws IOException, CsvValidationException {
         SeatDao seatDao = new SeatDaoImpl();
 
-        List<SeatVO> seats = new CsvToBeanBuilder<SeatVO>(new FileReader("경로 이따가"))
+        List<SeatVO> seats = new CsvToBeanBuilder<SeatVO>(new FileReader("src/main/resources/seat.csv"))
                 .withType(SeatVO.class)
                 .build()
                 .parse();
