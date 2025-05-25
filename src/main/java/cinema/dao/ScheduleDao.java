@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ScheduleDao {
     // 상영 정보 추가
-    int addSchedule(ScheduleVO schedule) throws SQLException;
+    void addSchedule(ScheduleVO schedule);
 
     // 상영 목록 조회
     List<ScheduleVO> getSchedule() throws SQLException;

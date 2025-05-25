@@ -12,7 +12,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
     Connection conn = JDBCUtil.getConnection();
 
     // schedule 테이블 관련 sql 명령어
-    private String SCHEDULE_INSERT = "INSERT INTO schedule VALUES (?, ?, ?, ?, ?)";
+    private String SCHEDULE_INSERT = "INSERT INTO schedule (schedule_id, movie_id, screen_date, start_time, end_time) VALUES (?, ?, ?, ?, ?)";
     private String SCHEDULE_LIST = "SELECT * FROM schedule";
     private String SCHEDULE_GET = "SELECT * FROM schedule WHERE id = ?";
     private String SCHEDULE_UPDATE = "UPDATE schedule SET screen_date = ?, start_time = ?, end_time = ? WHERE id = ?";
@@ -20,7 +20,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
 
     // 상영 정보 추가
     @Override
-    public int addSchedule(ScheduleVO schedule) throws SQLException {
+    public void addSchedule(ScheduleVO schedule) {
         try(PreparedStatement pstmt = conn.prepareStatement(SCHEDULE_INSERT)) {
             pstmt.setInt(1, schedule.getSchedule_id());
             pstmt.setInt(2, schedule.getMovie_id());
@@ -29,7 +29,9 @@ public class ScheduleDaoImpl implements ScheduleDao {
             pstmt.setDate(3, Date.valueOf(schedule.getScreen_date()));
             pstmt.setTime(4, Time.valueOf(schedule.getStart_time()));
             pstmt.setTime(5, Time.valueOf(schedule.getEnd_time()));
-            return pstmt.executeUpdate();
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
