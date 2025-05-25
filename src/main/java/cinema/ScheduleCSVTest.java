@@ -6,7 +6,7 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import java.io.FileReader;
 import java.util.List;
 
-public class CSVTest {
+public class ScheduleCSVTest {
     public static void main(String[] args) throws Exception {
         List<ScheduleVO> schedules = new CsvToBeanBuilder<ScheduleVO>(new FileReader("src/main/resources/schedule.csv"))
                 .withType(ScheduleVO.class)
