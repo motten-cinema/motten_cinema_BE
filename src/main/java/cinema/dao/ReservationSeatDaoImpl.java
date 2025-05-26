@@ -32,24 +32,6 @@ public class ReservationSeatDaoImpl implements ReservationSeatDao{
     }
 
     @Override
-    public List<ReservationSeatVO> findByReservationId(String reservationId) {
-        List<ReservationSeatVO> list = new ArrayList<>();
-        String sql = "SELECT * FROM reservation_seat WHERE reservation_id = ?";
-        try (Connection conn = JDBCUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, reservationId);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    list.add(map(rs));
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("예매 좌석 조회 실패: " + e.getMessage(), e);
-        }
-        return list;
-    }
-
-    @Override
     public void deleteByReservationId(String reservationId) {
         String sql = "DELETE FROM reservation_seat WHERE reservation_id = ?";
         try {
@@ -61,6 +43,28 @@ public class ReservationSeatDaoImpl implements ReservationSeatDao{
             throw new RuntimeException("예매 좌석 삭제 실패: " + e.getMessage(), e);
         }
     }
+
+    @Override
+    public List<String> findSeatCodesByReservationId(String reservationId) {
+        List<String> seatCodes = new ArrayList<>();
+        String sql = "SELECT s.seat_code " +
+                "FROM reservation_seat rs " +
+                "JOIN seat s ON rs.seat_id = s.seat_id " +
+                "WHERE rs.reservation_id = ?";
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, reservationId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    seatCodes.add(rs.getString("seat_code"));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("좌석 코드 조회 실패: " + e.getMessage(), e);
+        }
+        return seatCodes;
+    }
+
     private ReservationSeatVO map(ResultSet rs) throws SQLException {
         return ReservationSeatVO.builder()
                 .reservationSeatId(rs.getInt("reservation_seat_id"))

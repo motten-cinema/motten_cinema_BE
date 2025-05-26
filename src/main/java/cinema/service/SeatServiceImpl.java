@@ -23,18 +23,5 @@ public class SeatServiceImpl implements SeatService {
         return seatMap;
     }
 
-     //--------------------------------------------------------------------------------
-    // 좌석 선택
-    @Override
-    public void selectSeats(int scheduleId, List<String> seatCodes) {
-        selectedSeatsMap.putIfAbsent(scheduleId, new HashSet<>());
-        selectedSeatsMap.get(scheduleId).addAll(seatCodes);
-    }
-
-    // 선택한 좌석 조회
-    @Override
-    public Set<String> getSelectedSeats(int scheduleId) {
-        return selectedSeatsMap.getOrDefault(scheduleId, Collections.emptySet());
-    }
 }
 
