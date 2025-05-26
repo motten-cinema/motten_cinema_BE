@@ -1,4 +1,4 @@
-package cinema.domain;
+package payment.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

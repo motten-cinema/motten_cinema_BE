@@ -1,6 +1,6 @@
-package cinema.dao;
+package payment.dao;
 
-import cinema.domain.PaymentVO;
+import payment.domain.PaymentVO;
 import database.JDBCUtil;
 
 import java.sql.*;
@@ -22,6 +22,21 @@ public class PaymentDaoImpl implements PaymentDao {
             return pstmt.executeUpdate();
         }
     }
+    @Override
+    public boolean reservationExists(String reservationId) {
+        String sql = "SELECT COUNT(*) FROM reservation WHERE reservation_id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, reservationId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
 
     @Override

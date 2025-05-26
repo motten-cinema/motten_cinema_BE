@@ -1,8 +1,8 @@
-package cinema.dataimport;
+package payment.dataimport;
 
-import cinema.dao.PaymentDao;
-import cinema.dao.PaymentDaoImpl;
-import cinema.domain.PaymentVO;
+import payment.dao.PaymentDao;
+import payment.dao.PaymentDaoImpl;
+import payment.domain.PaymentVO;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvValidationException;
 import database.JDBCUtil;
