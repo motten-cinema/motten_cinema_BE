@@ -1,13 +1,16 @@
 package cinema.service;
+import cinema.domain.MovieVO;
 
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Optional;
 public interface CinemaService {
 
-    //영화 전체 목록 출력하기
-    void getList();
-    //특정 영화 id 상세보기 출력하기
-    void getById();
-    //영화 별점순으로 정렬하여 출력하기
-    void getSortedByRating();
-    // 영화 장르별로 필터링하여 출력하기
-    void getByGenre();
+    List<MovieVO> getList() throws SQLException;
+
+    Optional<MovieVO> getById(String movieId) throws SQLException;
+
+    List<MovieVO> getSortedByRating(boolean descending) throws SQLException;
+
+    List<MovieVO> getByGenre(String genre) throws SQLException;
 }
