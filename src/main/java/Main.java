@@ -1,6 +1,6 @@
-import cinema.service.SeatService;
-import cinema.service.SeatServiceImpl;
-import console.SeatLayoutPrinter;
+import seat.service.SeatService;
+import seat.service.SeatServiceImpl;
+import seat.console.SeatLayoutPrinter;
 
 import java.util.Map;
 

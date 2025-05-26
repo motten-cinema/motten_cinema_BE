@@ -1,6 +1,6 @@
-package cinema.dao;
+package seat.dao;
 
-import cinema.domain.ReservationSeatVO;
+import seat.domain.ReservationSeatVO;
 import database.JDBCUtil;
 
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReservationSeatDaoImpl implements ReservationSeatDao{
+public class ReservationSeatDaoImpl implements ReservationSeatDao {
 
     Connection conn = JDBCUtil.getConnection();
     private PreparedStatement pstmt;

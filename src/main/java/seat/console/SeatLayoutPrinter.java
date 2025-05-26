@@ -1,6 +1,4 @@
-package console;
-
-import cinema.domain.SeatVO;
+package seat.console;
 
 import java.util.*;
 public class SeatLayoutPrinter {

@@ -1,6 +1,6 @@
-package cinema.dao;
+package seat.dao;
 
-import cinema.domain.SeatVO;
+import seat.domain.SeatVO;
 import database.JDBCUtil;
 
 import java.sql.*;

@@ -1,4 +1,4 @@
-package cinema.domain;
+package seat.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

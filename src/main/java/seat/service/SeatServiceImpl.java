@@ -1,8 +1,8 @@
-package cinema.service;
+package seat.service;
 
-import cinema.dao.SeatDao;
-import cinema.dao.SeatDaoImpl;
-import cinema.domain.SeatVO;
+import seat.dao.SeatDao;
+import seat.dao.SeatDaoImpl;
+import seat.domain.SeatVO;
 
 import java.util.HashMap;
 import java.util.List;

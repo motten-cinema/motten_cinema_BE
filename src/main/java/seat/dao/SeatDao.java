@@ -1,7 +1,6 @@
-package cinema.dao;
+package seat.dao;
 
-import cinema.domain.ReservationSeatVO;
-import cinema.domain.SeatVO;
+import seat.domain.SeatVO;
 
 import java.util.List;
 
