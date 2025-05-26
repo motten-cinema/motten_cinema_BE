@@ -1,4 +1,13 @@
 package cinema.dao;
+import cinema.domain.MovieVO;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Optional;
 
 public interface CinemaDao {
+    void insert(MovieVO movie) throws SQLException;
+    List<MovieVO> getList() throws SQLException;
+    Optional<MovieVO> get(String movie_id) throws SQLException;
+    List<MovieVO> getSortedByRating(boolean descending) throws SQLException;
+    List<MovieVO> getByGenre(String genre) throws SQLException;
 }
