@@ -1,8 +1,8 @@
-package cinema.dataimport;
+package schedule.dataimport;
 
-import cinema.dao.ScheduleDao;
-import cinema.dao.ScheduleDaoImpl;
-import cinema.domain.ScheduleVO;
+import schedule.dao.ScheduleDao;
+import schedule.dao.ScheduleDaoImpl;
+import schedule.domain.ScheduleVO;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvValidationException;
 import database.JDBCUtil;

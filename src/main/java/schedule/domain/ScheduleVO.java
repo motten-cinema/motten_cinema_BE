@@ -1,4 +1,4 @@
-package cinema.domain;
+package schedule.domain;
 
 import com.opencsv.bean.CsvDate;
 import lombok.AllArgsConstructor;

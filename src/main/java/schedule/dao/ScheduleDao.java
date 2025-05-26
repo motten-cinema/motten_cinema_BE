@@ -1,6 +1,6 @@
-package cinema.dao;
+package schedule.dao;
 
-import cinema.domain.ScheduleVO;
+import schedule.domain.ScheduleVO;
 
 import java.sql.SQLException;
 import java.util.List;

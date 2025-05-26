@@ -1,6 +1,6 @@
-package cinema;
+package schedule;
 
-import cinema.domain.ScheduleVO;
+import schedule.domain.ScheduleVO;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 import java.io.FileReader;
