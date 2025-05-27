@@ -1,5 +1,5 @@
-package cinema.dao;
-import cinema.domain.MovieVO;
+package movie.dao;
+import movie.domain.MovieVO;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;

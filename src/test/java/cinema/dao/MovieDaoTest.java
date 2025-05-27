@@ -1,6 +1,8 @@
 package cinema.dao;
 
-import cinema.domain.MovieVO;
+import movie.dao.MovieDao;
+import movie.dao.MovieDaoImpl;
+import movie.domain.MovieVO;
 import database.JDBCUtil;
 import org.junit.jupiter.api.*;
 
@@ -11,9 +13,9 @@ import java.util.NoSuchElementException;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class CinemaDaoTest {
+public class MovieDaoTest {
 
-    CinemaDao dao = new CinemaDaoImpl();
+    MovieDao dao = new MovieDaoImpl();
 
     @AfterAll
     static void tearDown() {

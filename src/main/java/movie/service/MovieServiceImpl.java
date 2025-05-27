@@ -1,14 +1,14 @@
-package cinema.service;
+package movie.service;
 
-import cinema.dao.MovieDao;
-import cinema.dao.MovieDaoImpl;
-import cinema.domain.MovieVO;
+import movie.dao.MovieDao;
+import movie.dao.MovieDaoImpl;
+import movie.domain.MovieVO;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class CinemaServiceImpl implements CinemaService {
+public class MovieServiceImpl implements MovieService {
 
     private final MovieDao movieDao = new MovieDaoImpl();
 

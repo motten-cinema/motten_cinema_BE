@@ -1,4 +1,4 @@
-package cinema.domain;
+package movie.domain;
 
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvDate;

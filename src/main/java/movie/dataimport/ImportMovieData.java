@@ -1,8 +1,8 @@
-package cinema.dataimport;
+package movie.dataimport;
 
-import cinema.dao.MovieDao;
-import cinema.dao.MovieDaoImpl;
-import cinema.domain.MovieVO;
+import movie.dao.MovieDao;
+import movie.dao.MovieDaoImpl;
+import movie.domain.MovieVO;
 import com.opencsv.bean.CsvToBeanBuilder;
 import database.JDBCUtil;
 
