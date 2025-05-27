@@ -1,6 +1,5 @@
-package reservation.dataimport;
+package reservation.dao;
 
-import reservation.dao.ReservationDao;
 import reservation.domain.ReservationVO;
 
 import java.io.*;
