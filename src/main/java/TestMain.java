@@ -1,16 +1,17 @@
+import command.Command;
+import command.SeatLayoutCommand;
 import seat.service.SeatService;
 import seat.service.SeatServiceImpl;
-import seat.console.SeatLayoutPrinter;
 
 import java.util.Map;
 
 public class TestMain {
     public static void main(String[] args) {
+            int scheduleId = 1;
 
-        //임시로 좌석 배치도만 넣어놨습니다!
-        int scheduleId = 1;
-        SeatService seatService = new SeatServiceImpl();
-        Map<String, Boolean> seatMap = seatService.getSeatStatusMap(scheduleId);
-        SeatLayoutPrinter.print(seatMap);
+            SeatService seatService = new SeatServiceImpl();
+            Command seatLayoutCommand = new SeatLayoutCommand(seatService, scheduleId);
+
+            seatLayoutCommand.execute();  // 좌석 배치도 출력 + 좌석 입력
     }
 }

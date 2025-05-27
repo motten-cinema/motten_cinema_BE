@@ -1,9 +1,10 @@
-package seat.console;
+package command.print;
 
-import java.util.*;
-public class SeatLayoutPrinter {
+import java.util.Map;
 
-    public static void print(Map<String, Boolean> seatMap) {
+public class ReservationViewPrinter {
+
+    public static void printSeatLayout(Map<String, Boolean> seatMap) {
         String[] rows = {"A", "B", "C"};
         int cols = 6;
 
@@ -35,4 +36,7 @@ public class SeatLayoutPrinter {
         }
     }
 
+    public static void printLine() {
+        System.out.println("\n----------------------------------------");
+    }
 }
