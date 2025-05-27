@@ -65,6 +65,28 @@ public class ReservationSeatDaoImpl implements ReservationSeatDao {
         return seatCodes;
     }
 
+    @Override
+    public List<Integer> findSeatIdsByReservationId(String reservationId) {
+        List<Integer> seatIds = new ArrayList<>();
+        String sql = "SELECT seat_id FROM reservation_seat WHERE reservation_id = ?";
+
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, reservationId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    seatIds.add(rs.getInt("seat_id"));
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("좌석 ID 조회 실패: " + e.getMessage(), e);
+        }
+
+        return seatIds;
+    }
     private ReservationSeatVO map(ResultSet rs) throws SQLException {
         return ReservationSeatVO.builder()
                 .reservationSeatId(rs.getInt("reservation_seat_id"))
