@@ -1,6 +1,6 @@
-package cinema.dao;
+package movie.dao;
 
-import cinema.domain.MovieVO;
+import movie.domain.MovieVO;
 import database.JDBCUtil;
 
 import java.sql.*;

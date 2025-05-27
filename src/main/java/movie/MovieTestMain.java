@@ -1,15 +1,16 @@
-package cinema;
+package movie;
 
-import cinema.service.CinemaService;
-import cinema.service.CinemaServiceImpl;
+import movie.domain.MovieVO;
+import movie.service.MovieService;
+import movie.service.MovieServiceImpl;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 import cinema.domain.*;
 
-public class CinemaTestMain {
+public class MovieTestMain {
     public static void main(String[] args) {
-        CinemaService service = new CinemaServiceImpl();
+        MovieService service = new MovieServiceImpl();
         Scanner sc = new Scanner(System.in);
 
         while (true) {

@@ -1,10 +1,10 @@
-package cinema.service;
-import cinema.domain.MovieVO;
+package movie.service;
+import movie.domain.MovieVO;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-public interface CinemaService {
+public interface MovieService {
 
     List<MovieVO> getList() throws SQLException;
 

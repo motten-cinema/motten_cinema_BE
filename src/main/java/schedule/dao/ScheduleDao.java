@@ -14,7 +14,7 @@ public interface ScheduleDao {
     List<ScheduleVO> getSchedule() throws SQLException;
 
     // 상영 정보 조회
-    Optional<ScheduleVO> getScheduleById(int id) throws SQLException;
+    Optional<ScheduleVO> getScheduleById(int id);
 
     // 상영 정보 수정
     int updateSchedule(ScheduleVO schedule) throws SQLException;
