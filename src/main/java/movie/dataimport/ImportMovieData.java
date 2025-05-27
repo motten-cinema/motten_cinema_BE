@@ -1,7 +1,7 @@
 package cinema.dataimport;
 
-import cinema.dao.CinemaDao;
-import cinema.dao.CinemaDaoImpl;
+import cinema.dao.MovieDao;
+import cinema.dao.MovieDaoImpl;
 import cinema.domain.MovieVO;
 import com.opencsv.bean.CsvToBeanBuilder;
 import database.JDBCUtil;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ImportMovieData {
     public static void main(String[] args) {
-        CinemaDao dao = new CinemaDaoImpl();
+        MovieDao dao = new MovieDaoImpl();
 
         try (
                 InputStreamReader reader = new InputStreamReader(

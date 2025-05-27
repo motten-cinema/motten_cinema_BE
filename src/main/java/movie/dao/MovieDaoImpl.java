@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CinemaDaoImpl implements CinemaDao {
+public class MovieDaoImpl implements MovieDao {
 
     private final Connection conn = JDBCUtil.getConnection();
 
