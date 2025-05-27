@@ -22,13 +22,13 @@ public class ScheduleDaoImpl implements ScheduleDao {
     @Override
     public void addSchedule(ScheduleVO schedule) {
         try(PreparedStatement pstmt = conn.prepareStatement(SCHEDULE_INSERT)) {
-            pstmt.setInt(1, schedule.getSchedule_id());
-            pstmt.setInt(2, schedule.getMovie_id());
+            pstmt.setInt(1, schedule.getScheduleId());
+            pstmt.setInt(2, schedule.getMovieId());
             // VO에는 LocalDate, LocalTime을 이용하지만 setLocalDate, setLocalTime이 없다.
             // 따라서 valueOf를 이용해서 Date와 Time 타입으로 바꿔주었다.
-            pstmt.setDate(3, Date.valueOf(schedule.getScreen_date()));
-            pstmt.setTime(4, Time.valueOf(schedule.getStart_time()));
-            pstmt.setTime(5, Time.valueOf(schedule.getEnd_time()));
+            pstmt.setDate(3, Date.valueOf(schedule.getScreenDate()));
+            pstmt.setTime(4, Time.valueOf(schedule.getStartTime()));
+            pstmt.setTime(5, Time.valueOf(schedule.getEndTime()));
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -38,12 +38,12 @@ public class ScheduleDaoImpl implements ScheduleDao {
     // ResultSet을 ScheduleVO 객체로 변환하는 map 함수
     private ScheduleVO map(ResultSet rs) throws SQLException {
         ScheduleVO schedule = new ScheduleVO();
-        schedule.setSchedule_id(rs.getInt("schedule_id"));
-        schedule.setMovie_id(rs.getInt("movie_id"));
+        schedule.setScheduleId(rs.getInt("schedule_id"));
+        schedule.setMovieId(rs.getInt("movie_id"));
         // getLocalDate와 getLocalTime 또한 없으므로, toLocalDate(), toLocalTime()을 활용한다.
-        schedule.setScreen_date(rs.getDate("screen_date").toLocalDate());
-        schedule.setStart_time(rs.getTime("start_time").toLocalTime());
-        schedule.setEnd_time(rs.getTime("end_time").toLocalTime());
+        schedule.setScreenDate(rs.getDate("screen_date").toLocalDate());
+        schedule.setStartTime(rs.getTime("start_time").toLocalTime());
+        schedule.setEndTime(rs.getTime("end_time").toLocalTime());
         return schedule;
     }
 
@@ -64,14 +64,16 @@ public class ScheduleDaoImpl implements ScheduleDao {
 
     // 상영 정보 조회
     @Override
-    public Optional<ScheduleVO> getScheduleById(int id) throws SQLException {
+    public Optional<ScheduleVO> getScheduleById(int scheduleId) {
         try(PreparedStatement pstmt = conn.prepareStatement(SCHEDULE_GET)) {
-            pstmt.setInt(1, id);
+            pstmt.setInt(1, scheduleId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if(rs.next()) {
                     return Optional.of(map(rs));
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return Optional.empty();
     }
@@ -81,18 +83,19 @@ public class ScheduleDaoImpl implements ScheduleDao {
     public int updateSchedule(ScheduleVO schedule) throws SQLException {
         Connection conn = JDBCUtil.getConnection();
         try(PreparedStatement pstmt = conn.prepareStatement(SCHEDULE_UPDATE)) {
-            pstmt.setDate(1, Date.valueOf(schedule.getScreen_date()));
-            pstmt.setTime(2, Time.valueOf(schedule.getStart_time()));
-            pstmt.setTime(3, Time.valueOf(schedule.getEnd_time()));
+            pstmt.setDate(1, Date.valueOf(schedule.getScreenDate()));
+            pstmt.setTime(2, Time.valueOf(schedule.getStartTime()));
+            pstmt.setTime(3, Time.valueOf(schedule.getEndTime()));
             return pstmt.executeUpdate();
         }
     }
 
     @Override
-    public int deleteSchedule(int id) throws SQLException {
+    public int deleteSchedule(int scheduleId) throws SQLException {
         try(PreparedStatement pstmt = conn.prepareStatement(SCHEDULE_DELETE)) {
-            pstmt.setInt(1, id);
+            pstmt.setInt(1, scheduleId);
             return pstmt.executeUpdate();
         }
     }
+
 }

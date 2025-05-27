@@ -12,17 +12,17 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ScheduleVO {
-    private int schedule_id;
-    private int movie_id;
+    private int scheduleId;
+    private int movieId;
 
     // OpenCSV는 String을 LocalDate로 자동 변환할 수 없다.
     // @CsvDate를 통해 날짜 형식을 명시하면 자동으로 LocalDate와 LocalTime으로 변환할 수 있다.
     @CsvDate("yyyy-MM-dd")
-    private LocalDate screen_date;
+    private LocalDate screenDate;
 
     @CsvDate("HH:mm:ss")
-    private LocalTime start_time;
+    private LocalTime startTime;
 
     @CsvDate("HH:mm:ss")
-    private LocalTime end_time;
+    private LocalTime endTime;
 }
