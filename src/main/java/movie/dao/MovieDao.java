@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface MovieDao {
     void insert(MovieVO movie) throws SQLException;
     List<MovieVO> getList() throws SQLException;
-    Optional<MovieVO> get(String movie_id) throws SQLException;
+    Optional<MovieVO> get(int movie_id);
     List<MovieVO> getSortedByRating(boolean descending) throws SQLException;
     List<MovieVO> getByGenre(String genre) throws SQLException;
 }

@@ -14,20 +14,20 @@ public class MovieDaoImpl implements MovieDao {
 
     @Override
     public void insert(MovieVO movie) throws SQLException {
-        String sql = "INSERT INTO movie (movie_id, title, genre, rating, director, cast, summary, age_limit, duration, release_date) " +
+        String sql = "INSERT INTO movie (movieId, title, genre, rating, director, cast, summary, ageLimit, duration, releaseDate) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, movie.getMovie_id());
+            ps.setInt(1, movie.getMovieId());
             ps.setString(2, movie.getTitle());
             ps.setString(3, movie.getGenre());
             ps.setFloat(4, movie.getRating());
             ps.setString(5, movie.getDirector());
             ps.setString(6, movie.getCast());
             ps.setString(7, movie.getSummary());
-            ps.setInt(8, movie.getAge_limit());
+            ps.setInt(8, movie.getAgeLimit());
             ps.setInt(9, movie.getDuration());
-            ps.setDate(10, Date.valueOf(movie.getRelease_date()));
+            ps.setDate(10, Date.valueOf(movie.getReleaseDate()));
             ps.executeUpdate();
         }
     }
@@ -46,15 +46,17 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public Optional<MovieVO> get(String id) throws SQLException {
-        String sql = "SELECT * FROM movie WHERE movie_id = ?";
+    public Optional<MovieVO> get(int movieId) {
+        String sql = "SELECT * FROM movie WHERE movieId = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, id);
+            ps.setInt(1, movieId);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return Optional.of(map(rs));
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return Optional.empty();
     }
@@ -91,16 +93,16 @@ public class MovieDaoImpl implements MovieDao {
 
     private MovieVO map(ResultSet rs) throws SQLException {
         MovieVO movie = new MovieVO();
-        movie.setMovie_id(rs.getInt("movie_id"));
+        movie.setMovieId(rs.getInt("movie_id"));
         movie.setTitle(rs.getString("title"));
         movie.setGenre(rs.getString("genre"));
         movie.setRating(rs.getFloat("rating"));
         movie.setDirector(rs.getString("director"));
         movie.setCast(rs.getString("cast"));
         movie.setSummary(rs.getString("summary"));
-        movie.setAge_limit(rs.getInt("age_limit"));
+        movie.setAgeLimit(rs.getInt("age_limit"));
         movie.setDuration(rs.getInt("duration"));
-        movie.setRelease_date(rs.getDate("release_date").toLocalDate());
+        movie.setReleaseDate(rs.getDate("release_date").toLocalDate());
         return movie;
     }
 }
