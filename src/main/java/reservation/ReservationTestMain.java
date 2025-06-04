@@ -1,7 +1,7 @@
 package reservation;
 
 import reservation.dao.ReservationDao;
-import reservation.dataimport.ReservationDaoImpl;
+import reservation.dao.ReservationDaoImpl;
 import reservation.domain.ReservationVO;
 
 import java.sql.Timestamp;

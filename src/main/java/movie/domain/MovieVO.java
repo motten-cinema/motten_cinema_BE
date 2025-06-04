@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class MovieVO {
 
     @CsvBindByName(column = "movie_id")
-    private int movie_id;
+    private int movieId;
 
     @CsvBindByName(column = "title")
     private String title;
@@ -35,12 +35,12 @@ public class MovieVO {
     private String summary;
 
     @CsvBindByName(column = "age_limit")
-    private int age_limit;
+    private int ageLimit;
 
     @CsvBindByName(column = "duration")
     private int duration;
 
     @CsvBindByName(column = "release_date")
     @CsvDate("yyyy-MM-dd")
-    private LocalDate release_date;
+    private LocalDate releaseDate;
 }

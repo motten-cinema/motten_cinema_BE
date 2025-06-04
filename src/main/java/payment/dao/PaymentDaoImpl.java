@@ -59,4 +59,15 @@ public class PaymentDaoImpl implements PaymentDao {
         }
         return null; //조회 결과가 없다면 null 반환
     }
+
+    @Override
+    public void deletePaymentByReservationId(String reservationId){
+        String sql = "DELETE FROM payment WHERE reservation_id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, reservationId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
