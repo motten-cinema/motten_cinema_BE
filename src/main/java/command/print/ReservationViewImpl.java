@@ -1,10 +1,39 @@
 package command.print;
 
 
+import schedule.domain.ScheduleVO;
+
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 public class ReservationViewImpl{
 
+    public static void printMovieHeader(){
+        System.out.println("◉ ◉ ◉ ◉ ◉  🎟 MOVIE Reservation  ◉ ◉ ◉ ◉ ◉");
+    }
+
+    //예매할 수 있는 날짜를 받아서  출력
+    public static void printDateSelectionMenu(List<LocalDate> dates){
+        System.out.println("----------------------------------------");
+        System.out.println("📅 예매하실 날짜를 선택해주세요\n");
+
+        for(int i = 0; i < dates.size(); i++){
+            System.out.printf("%d. %s%n", i + 1, dates.get(i));
+        }
+
+    }
+    //상영 시간표를 받아서 출력
+    public static void printTimeSelection(List<ScheduleVO> schedules){
+        System.out.println("\n◉ ◉ ◉  ⏰ MOVIE TIME SELECTION  ◉ ◉ ◉");
+        System.out.println("----------------------------------------");
+        System.out.println("📅 상영 시간표 (선택 날짜 기준)\n");
+
+        for(int i = 0; i < schedules.size(); i++){
+            ScheduleVO s = schedules.get(i);
+            System.out.printf("%d. ⏰ %s - %s%n", i + 1, s.getStartTime(), s.getEndTime());
+        }
+    }
     public static void printSeatLayout(Map<String, Boolean> seatMap) {
         String[] rows = {"A", "B", "C"};
         int cols = 6;

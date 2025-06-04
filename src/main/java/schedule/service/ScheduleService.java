@@ -9,4 +9,5 @@ import java.util.List;
 public interface ScheduleService {
     //날짜로 상영 정보 조회
     List<ScheduleVO> getSchedulesByDate(LocalDate date);
+    List<ScheduleVO> getSchedulesByMovieId(int movieId);
 }

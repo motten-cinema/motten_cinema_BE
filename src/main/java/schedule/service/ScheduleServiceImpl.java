@@ -25,4 +25,16 @@ public class ScheduleServiceImpl implements ScheduleService{
             return List.of();
         }
     }
+
+    @Override
+    public List<ScheduleVO> getSchedulesByMovieId(int movieId) {
+        try {
+            return scheduleDao.getSchedule().stream()
+                    .filter(s -> s.getMovieId() == movieId)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
+        }
+    }
 }
