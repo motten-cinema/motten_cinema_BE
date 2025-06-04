@@ -18,7 +18,7 @@ public class ScheduleServiceImpl implements ScheduleService{
     public List<ScheduleVO> getSchedulesByDate(LocalDate date) {
         try{
             return scheduleDao.getSchedule().stream()
-                    .filter(schedule-> schedule.getScreen_date().equals(date))
+                    .filter(schedule-> schedule.getScreenDate().equals(date))
                     .collect(Collectors.toList());
         }catch (Exception e) {
             e.printStackTrace();

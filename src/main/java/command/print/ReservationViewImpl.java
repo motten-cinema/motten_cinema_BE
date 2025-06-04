@@ -1,8 +1,9 @@
 package command.print;
 
+
 import java.util.Map;
 
-public class ReservationViewPrinter {
+public class ReservationViewImpl{
 
     public static void printSeatLayout(Map<String, Boolean> seatMap) {
         String[] rows = {"A", "B", "C"};

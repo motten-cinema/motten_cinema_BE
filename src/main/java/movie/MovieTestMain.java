@@ -6,7 +6,6 @@ import movie.service.MovieServiceImpl;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
-import cinema.domain.*;
 
 public class MovieTestMain {
     public static void main(String[] args) {

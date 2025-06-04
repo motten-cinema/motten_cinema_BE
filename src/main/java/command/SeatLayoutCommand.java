@@ -1,6 +1,7 @@
 package command;
 
-import command.print.ReservationViewPrinter;
+import command.input.InputUtil;
+import command.print.ReservationViewImpl;
 import seat.service.SeatService;
 
 import java.util.Map;
@@ -19,8 +20,8 @@ public class SeatLayoutCommand implements Command {
     @Override
     public void execute() {
         Map<String, Boolean> seatMap = seatService.getSeatStatusMap(scheduleId);
-        ReservationViewPrinter.printSeatLayout(seatMap);
-        ReservationViewPrinter.printLine();
+        ReservationViewImpl.printSeatLayout(seatMap);
+        ReservationViewImpl.printLine();
 
         Scanner scanner = new Scanner(System.in);
         String[] seatCodes = InputUtil.nextSeatCodes("👉 예매할 좌석을 입력해주세요 (예: A1 A3): ");
