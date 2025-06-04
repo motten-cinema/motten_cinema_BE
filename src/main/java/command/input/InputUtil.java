@@ -33,25 +33,6 @@ public class InputUtil {
         }
     }
 
-    public static LocalDate selectDate(List<LocalDate> dates, String prompt) {
-        for (int i = 0; i < dates.size(); i++) {
-            System.out.printf("%d. %s%n", i + 1, dates.get(i));
-        }
-
-        while (true) {
-            System.out.print(prompt);
-            try {
-                int option = Integer.parseInt(sc.nextLine());
-                if (option >= 1 && option <= dates.size()) {
-                    return dates.get(option - 1);
-                } else {
-                    System.out.println("범위를 벗어났습니다. 다시 입력해주세요.");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("숫자를 입력해주세요.");
-            }
-        }
-    }
     // 좌석 입력
     public static String[] nextSeatCodes(String prompt) {
         System.out.print(prompt);
