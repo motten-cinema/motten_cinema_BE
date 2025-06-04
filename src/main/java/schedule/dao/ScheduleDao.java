@@ -21,4 +21,8 @@ public interface ScheduleDao {
 
     // 상영 정보 삭제
     int deleteSchedule(int id) throws SQLException;
+
+    //영화 id로 상영 정보 조회
+    List<ScheduleVO> getSchedulesByMovieId(int movieId) throws SQLException;
+
 }

@@ -98,4 +98,20 @@ public class ScheduleDaoImpl implements ScheduleDao {
         }
     }
 
+    @Override
+    public List<ScheduleVO> getSchedulesByMovieId(int movieId) throws SQLException {
+        List<ScheduleVO> scheduleList = new ArrayList<>();
+        String sql = "SELECT * FROM schedule WHERE movie_id = ?";
+
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, movieId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    scheduleList.add(map(rs));
+                }
+            }
+        }
+        return scheduleList;
+    }
 }
