@@ -47,7 +47,7 @@ public class MovieDaoImpl implements MovieDao {
 
     @Override
     public Optional<MovieVO> get(int movieId) {
-        String sql = "SELECT * FROM movie WHERE movieId = ?";
+        String sql = "SELECT * FROM movie WHERE movie_id = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, movieId);
             try (ResultSet rs = ps.executeQuery()) {
