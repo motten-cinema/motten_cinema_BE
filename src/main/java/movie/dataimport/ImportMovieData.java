@@ -28,7 +28,6 @@ public class ImportMovieData {
                 System.out.println("Inserted: " + movie.getTitle());
             }
 
-            JDBCUtil.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

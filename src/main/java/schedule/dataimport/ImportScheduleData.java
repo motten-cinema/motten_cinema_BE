@@ -25,7 +25,6 @@ public class ImportScheduleData {
             dao.addSchedule(schedule);
         });
 
-        JDBCUtil.close();
 
     }
 }
