@@ -8,7 +8,7 @@ public interface MovieService {
 
     List<MovieVO> getList() throws SQLException;
 
-    Optional<MovieVO> getById(String movieId) throws SQLException;
+    Optional<MovieVO> getById(int movieId) throws SQLException;
 
     List<MovieVO> getSortedByRating(boolean descending) throws SQLException;
 
