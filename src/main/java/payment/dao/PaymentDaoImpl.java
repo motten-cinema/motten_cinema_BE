@@ -43,7 +43,7 @@ public class PaymentDaoImpl implements PaymentDao {
 
     //결제 정보 (예매 내역) 반환
     @Override
-    public PaymentVO findByReservationId(String reservationId) throws SQLException {
+    public PaymentVO getByReservationId(String reservationId) throws SQLException {
         String sql = "SELECT * FROM payment WHERE reservation_id = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, reservationId);

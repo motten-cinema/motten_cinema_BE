@@ -39,7 +39,7 @@ public class PaymentLayoutPrinter {
             System.out.println("");
             System.out.println("");
             System.out.println("✅ 결제가 완료되었습니다. 감사합니다!");
-            PaymentVO payment = paymentDaoImpl.findByReservationId(reservationId); //payment에 reservationId값을 통해 테이블 내용 저장
+            PaymentVO payment = paymentDaoImpl.getByReservationId(reservationId); //payment에 reservationId값을 통해 테이블 내용 저장
             System.out.println("예몌 번호 : " + payment.getReservationId()); //예매 번호 출력
             System.out.println("결제 시각 : " + payment.getPaymentTime()); //결제 시각 출력(포멧팅에 대한 고민 필요..(T))
         }
