@@ -28,12 +28,12 @@ public class MovieTestMain {
                         List<MovieVO> all = service.getList();
                         System.out.println("🎬 전체 영화 목록:");
                         all.forEach(m -> System.out.println(
-                                "ID: " + m.getMovie_id() + " | 제목: " + m.getTitle() + " | 평점: " + m.getRating()));
+                                "ID: " + m.getMovieId() + " | 제목: " + m.getTitle() + " | 평점: " + m.getRating()));
                         break;
 
                     case "2":
                         System.out.print("🎬 영화 ID 입력: ");
-                        String id = sc.nextLine();
+                        int id = sc.nextInt();
                         Optional<MovieVO> found = service.getById(id);
                         if (found.isPresent()) {
                             MovieVO m = found.get();
@@ -44,8 +44,8 @@ public class MovieTestMain {
                             System.out.println("👥 출연진: " + m.getCast());
                             System.out.println("📖 줄거리: " + m.getSummary());
                             System.out.println("🕒 상영 시간: " + m.getDuration() + "분");
-                            System.out.println("🔞 관람 등급: " + m.getAge_limit() + "세 이상");
-                            System.out.println("📅 개봉일: " + m.getRelease_date());
+                            System.out.println("🔞 관람 등급: " + m.getAgeLimit() + "세 이상");
+                            System.out.println("📅 개봉일: " + m.getReleaseDate());
                         } else {
                             System.out.println("❌ 해당 ID의 영화가 없습니다.");
                         }
@@ -57,7 +57,7 @@ public class MovieTestMain {
                         boolean desc = "1".equals(order);
                         List<MovieVO> sorted = service.getSortedByRating(desc);
                         sorted.forEach(m -> System.out.println(
-                                "ID: " + m.getMovie_id() + " | " + m.getTitle() + " | ⭐ " + m.getRating()));
+                                "ID: " + m.getMovieId() + " | " + m.getTitle() + " | ⭐ " + m.getRating()));
                         break;
 
                     case "4":
@@ -68,7 +68,7 @@ public class MovieTestMain {
                             System.out.println("❌ 해당 장르의 영화가 없습니다.");
                         } else {
                             byGenre.forEach(m -> System.out.println(
-                                    "ID: " + m.getMovie_id() + " | " + m.getTitle() + " | ⭐ " + m.getRating()));
+                                    "ID: " + m.getMovieId() + " | " + m.getTitle() + " | ⭐ " + m.getRating()));
                         }
                         break;
 

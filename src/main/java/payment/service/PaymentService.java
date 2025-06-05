@@ -12,15 +12,12 @@ public class PaymentService implements PaymentServiceInterface {
 
     //PaymentService는 SQL문을 활용하여 작성
     public boolean checkReservation(String reservationId) {
-        try{
-            if(!paymentDao.reservationExists(reservationId)){ //PaymentDao의 reservationExists 메서드를 통해 예매 번호 검증
-                System.out.println("존재하지 않는 예매 번호입니다.");
-                return false;
-            }  System.out.println("예매번호: " + reservationId + "에 대한 결제를 진행합니다.");
-            return true;
-        } catch(SQLException e){
-            e.printStackTrace();}
-        return false;
+        if(!paymentDao.reservationExists(reservationId)){ //PaymentDao의 reservationExists 메서드를 통해 예매 번호 검증
+            System.out.println("존재하지 않는 예매 번호입니다.");
+            return false;
+        }
+        System.out.println("예매번호: " + reservationId + "에 대한 결제를 진행합니다.");
+        return true;
     }
 
     @Override

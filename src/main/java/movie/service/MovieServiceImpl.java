@@ -18,8 +18,8 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Optional<MovieVO> getById(String movieId) throws SQLException {
-        return movieDao.get(String.valueOf(movieId));
+    public Optional<MovieVO> getById(int movieId) throws SQLException {
+        return movieDao.get(movieId);
     }
 
     @Override

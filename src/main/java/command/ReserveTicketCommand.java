@@ -53,7 +53,7 @@ public class ReserveTicketCommand implements Command {
                 .sorted(Comparator.comparing(ScheduleVO::getStartTime))
                 .toList();
 
-        ReservationViewImpl.printTimeSelection(schedules);
+        ReservationViewImpl.printTimeSelection(times);
 
         //상영 시간 선택
         int timeOption = InputUtil.getIntInRange("👉 입력: ", 1, times.size());
