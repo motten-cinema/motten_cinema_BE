@@ -1,5 +1,7 @@
 package command.input;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 public class InputUtil {
@@ -13,6 +15,18 @@ public class InputUtil {
                 int value = Integer.parseInt(sc.nextLine());
                 if (value >= min && value <= max) return value;
                 else System.out.println("범위를 벗어났습니다. 다시 입력해주세요.");
+            } catch (NumberFormatException e) {
+                System.out.println("숫자를 입력해주세요.");
+            }
+        }
+    }
+
+    //정수 입력 (제한x)
+    public static int nextInt(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            try {
+                return Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("숫자를 입력해주세요.");
             }

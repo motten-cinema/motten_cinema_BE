@@ -41,7 +41,7 @@ public class MovieDaoTest {
     @DisplayName("moviedao movie 특정 1건을 추출합니다.")
     @Order(2)
     void get() throws SQLException {
-        MovieVO movie = dao.get("1").orElseThrow(NoSuchElementException::new);
+        MovieVO movie = dao.get(1).orElseThrow(NoSuchElementException::new);
         assertNotNull(movie);
         System.out.println(movie);
     }
@@ -58,7 +58,7 @@ public class MovieDaoTest {
 
         System.out.println("높은 평점 순 정렬 : ");
         for (MovieVO movie : listDesc) {
-            System.out.println("ID: " + movie.getMovie_id()
+            System.out.println("ID: " + movie.getMovieId()
                     + " || Title: " + movie.getTitle()
                     + " || Director: " + movie.getDirector()
                     + " || Rating: " + movie.getRating());
@@ -66,7 +66,7 @@ public class MovieDaoTest {
 
         System.out.println("낮은 평점 순 정렬 : ");
         for (MovieVO movie : listAsc) {
-            System.out.println("ID: " + movie.getMovie_id()
+            System.out.println("ID: " + movie.getMovieId()
                     + " || Title: " + movie.getTitle()
                     + " || Director: " + movie.getDirector()
                     + " || Rating: " + movie.getRating());
@@ -83,7 +83,7 @@ public class MovieDaoTest {
         assertFalse(list.isEmpty(), genre + " 장르 영화가 있어야 합니다.");
         System.out.println("장르: " + genre + " -> 조회 결과 : ");
         for (MovieVO movie : list) {
-            System.out.println("ID: " + movie.getMovie_id()
+            System.out.println("ID: " + movie.getMovieId()
                     + " || Title: " + movie.getTitle()
                     + " || Director: " + movie.getDirector()
                     + " || Rating: " + movie.getRating());

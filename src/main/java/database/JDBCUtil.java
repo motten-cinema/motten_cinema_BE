@@ -6,32 +6,31 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class JDBCUtil {
-    static Connection conn = null;
+
+    private static final String URL;
+    private static final String USER;
+    private static final String PASSWORD;
+    private static final String DRIVER;
+
     static {
         try {
             Properties properties = new Properties();
             properties.load(JDBCUtil.class.getResourceAsStream("/application.properties"));
-            String driver = properties.getProperty("driver");
-            String url = properties.getProperty("url");
-            String id = properties.getProperty("username");
-            String password = properties.getProperty("password");
-            Class.forName(driver);
-            conn = DriverManager.getConnection(url, id, password);
+            DRIVER = properties.getProperty("driver");
+            URL = properties.getProperty("url");
+            USER = properties.getProperty("username");
+            PASSWORD = properties.getProperty("password");
+            Class.forName(DRIVER);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("DB 설정 로딩 실패", e);
         }
     }
+
     public static Connection getConnection() {
-        return conn;
-    }
-    public static void close() {
         try {
-            if (conn != null) {
-                conn.close();
-                conn = null;
-            }
+            return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("DB 연결 실패", e);
         }
     }
 }

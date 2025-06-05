@@ -8,41 +8,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SeatDaoImpl implements SeatDao {
-    Connection conn = JDBCUtil.getConnection();
-    private PreparedStatement pstmt;
-    private ResultSet rs;
-
-
+    
     @Override
     public void insert(SeatVO seat) {
         String sql = "INSERT INTO seat (schedule_id, seat_code, is_reserved) VALUES (?, ?, ?)";
-        try {
-            conn = JDBCUtil.getConnection();
-            pstmt = conn.prepareStatement(sql);
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
             pstmt.setInt(1, seat.getScheduleId());
             pstmt.setString(2, seat.getSeatCode());
             pstmt.setBoolean(3, seat.getIsReserved());
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("좌석 삽입 실패", e);
         }
     }
 
     @Override
     public void updateReservedStatus(int seatId, boolean isReserved) {
         String sql = "UPDATE seat SET is_reserved = ? WHERE seat_id = ?";
-        try{
-            conn = JDBCUtil.getConnection();
-            pstmt = conn.prepareStatement(sql);
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
             pstmt.setBoolean(1, isReserved);
             pstmt.setInt(2, seatId);
             pstmt.executeUpdate();
+
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("좌석 예약 상태 업데이트 실패", e);
         }
     }
-
     @Override
     public List<SeatVO> findByScheduleId(int scheduleId) {
         List<SeatVO> list = new ArrayList<>();
