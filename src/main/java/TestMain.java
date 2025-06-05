@@ -1,23 +1,24 @@
 import command.Command;
-import command.SeatLayoutCommand;
+import command.ReserveTicketCommand;
 import command.print.MovieViewImpl;
+import reservation.service.ReservationService;
+import reservation.service.ReservationServiceImpl;
+import schedule.service.ScheduleService;
+import schedule.service.ScheduleServiceImpl;
 import seat.service.SeatService;
 import seat.service.SeatServiceImpl;
 
-import java.util.Map;
 import java.util.Scanner;
 
 public class TestMain {
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
         MovieViewImpl.printMovieList(sc);
+        ScheduleService scheduleService = new ScheduleServiceImpl();
+        SeatService seatService = new SeatServiceImpl();
+        ReservationService reservationService = new ReservationServiceImpl();
 
-        int scheduleId = 1;
-
-            SeatService seatService = new SeatServiceImpl();
-            Command seatLayoutCommand = new SeatLayoutCommand(seatService, scheduleId);
-
-            seatLayoutCommand.execute();  // 좌석 배치도 출력 + 좌석 입력
+        Command reserveTicketCommand = new ReserveTicketCommand(scheduleService, seatService, reservationService);
+        reserveTicketCommand.execute();
     }
 }
