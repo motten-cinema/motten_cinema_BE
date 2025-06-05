@@ -1,6 +1,9 @@
 package command.print;
 
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 public class ReservationViewImpl{
@@ -39,5 +42,21 @@ public class ReservationViewImpl{
 
     public static void printLine() {
         System.out.println("\n----------------------------------------");
+    }
+
+    public static void printPaymentInfo(String title, LocalDate screenDate, LocalDateTime startTime, int totalPeople, List<String> seats, int totalPrice) {
+
+        System.out.println("◉ ◉ ◉ ◉ ◉  PAYMENT INFORMATION  ◉ ◉ ◉ ◉ ◉");
+        printLine();
+        System.out.println("\uD83C\uDFAC 영화 제목 : " + title);
+        System.out.println("\uD83D\uDCC5 날짜 :" + screenDate);
+        System.out.println("⏰ 상영 시간 :" + startTime);
+        System.out.println("\uD83D\uDC65 인원 수 :" + totalPeople);
+        System.out.print("\uD83D\uDCBA 선택 좌석 :");
+        for (String seat : seats) {
+            System.out.print(seat);
+        }
+        System.out.println();
+        System.out.println("\uD83D\uDCB0 총 금액 :" + totalPrice);
     }
 }
