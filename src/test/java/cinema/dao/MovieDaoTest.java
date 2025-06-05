@@ -29,7 +29,7 @@ public class MovieDaoTest {
         List<MovieVO> list = dao.getList();
         for (MovieVO movieVO : list) {
             System.out.println(
-                    "ID: " + movieVO.getMovie_id() +
+                    "ID: " + movieVO.getMovieId() +
                             " || Title: " + movieVO.getTitle() +
                             " || Genre: " + movieVO.getGenre() +
                             " || Rating: " + movieVO.getRating()

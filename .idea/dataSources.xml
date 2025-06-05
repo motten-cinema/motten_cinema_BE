@@ -13,11 +13,11 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="movie_project@localhost" uuid="07dcc6a8-192b-4d63-82fe-40b2a9ff6097">
+    <data-source source="LOCAL" name="movie@localhost" uuid="07dcc6a8-192b-4d63-82fe-40b2a9ff6097">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/movie_project</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/movie</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />

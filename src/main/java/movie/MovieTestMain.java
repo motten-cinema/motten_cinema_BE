@@ -34,6 +34,7 @@ public class MovieTestMain {
                     case "2":
                         System.out.print("🎬 영화 ID 입력: ");
                         int id = sc.nextInt();
+                        sc.nextLine();
                         Optional<MovieVO> found = service.getById(id);
                         if (found.isPresent()) {
                             MovieVO m = found.get();
