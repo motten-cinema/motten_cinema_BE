@@ -13,12 +13,16 @@ public class MovieServiceImpl implements MovieService {
     private final MovieDao movieDao = new MovieDaoImpl();
 
     @Override
-    public List<MovieVO> getList() throws SQLException {
-        return movieDao.getList();
+    public List<MovieVO> getList() {
+        try {
+            return movieDao.getList();
+        } catch (SQLException e) {
+            throw new RuntimeException("영화 목록 조회 실패", e);
+        }
     }
 
     @Override
-    public Optional<MovieVO> getById(int movieId) throws SQLException {
+    public Optional<MovieVO> getById(int movieId){
         return movieDao.get(movieId);
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ReservationManagementViewImpl {
 
-    public static void printCheckreservation(String title, LocalDate screenDate, LocalDateTime startTime, int totalPeople, List<String> seats, int totalPrice) {
+    public static void printCheckReservation(String title, LocalDate screenDate, LocalDateTime startTime, int totalPeople, List<String> seats, int totalPrice) {
 
         System.out.println("\uD83C\uDF9F RESERVATION INFO");
         System.out.println("\uD83C\uDFAC 영화 제목 : " + title);
