@@ -2,11 +2,14 @@ package command.print;
 
 
 
+import payment.domain.PaymentVO;
 import schedule.domain.ScheduleVO;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
@@ -81,7 +84,7 @@ public class ReservationViewImpl{
         System.out.println("\n----------------------------------------");
     }
 
-    public static void printPaymentInfo(String title, LocalDate screenDate, LocalDateTime startTime, int totalPeople, List<String> seats, int totalPrice) {
+    public static void printPaymentInfo(String title, LocalDate screenDate, LocalTime startTime, int totalPeople, List<String> seats, int totalPrice) {
 
         System.out.println("◉ ◉ ◉ ◉ ◉  PAYMENT INFORMATION  ◉ ◉ ◉ ◉ ◉");
         printLine();
@@ -95,5 +98,37 @@ public class ReservationViewImpl{
         }
         System.out.println();
         System.out.println("\uD83D\uDCB0 총 금액 :" + totalPrice);
+    }
+    public static void printCashReceiptOption(){
+        System.out.print("결제하실 예매 번호를 입력해주세요. 예(AB123) : ");
+        System.out.println("");
+        System.out.println("◉ ◉ ◉ ◉ ◉ CASH RECEIPT  ◉ ◉ ◉ ◉ ◉");
+        System.out.println("----------------------------------------");
+        System.out.print("\uD83D\uDCC4 현금영수증을 발급하시겠습니까? (y/n) : ");
+        System.out.println("----------------------------------------");
+        System.out.println("");
+        System.out.print("📱 전화번호를 입력해주세요. 예(010-1234-5678) : ");
+    }
+    public static void printPaymentProcess(String reservationId, LocalDateTime paymentTime) throws SQLException {
+        System.out.println("");
+        System.out.println("----------------------------------------");
+        System.out.println("💳 결제 진행 중...");
+        System.out.print("");
+        try {
+            Thread.sleep(1000);
+            System.out.println("▓          10%");
+            Thread.sleep(1000);
+            System.out.println("▓▓▓▓▓      50%");
+            Thread.sleep(1000);
+            System.out.println("▓▓▓▓▓▓▓▓▓▓ 100%");
+            Thread.sleep(500);
+            System.out.println("");
+            System.out.println("");
+            System.out.println("✅ 결제가 완료되었습니다. 감사합니다!");
+            System.out.println("예몌 번호 : " + reservationId);
+            System.out.println("결제 시각 : " + paymentTime);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

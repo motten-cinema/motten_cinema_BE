@@ -33,6 +33,13 @@ public class InputUtil {
         }
     }
 
+    //입력
+    public static String nextInput(String prompt) {
+            System.out.print(prompt);
+            return sc.nextLine();
+        }
+
+
     // 좌석 입력
     public static String[] nextSeatCodes(String prompt) {
         System.out.print(prompt);

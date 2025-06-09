@@ -16,6 +16,7 @@ import seat.dao.ReservationSeatDao;
 import seat.dao.ReservationSeatDaoImpl;
 import seat.dao.SeatDao;
 import seat.dao.SeatDaoImpl;
+import seat.domain.ReservationSeatVO;
 import seat.domain.SeatVO;
 
 import java.util.List;
@@ -72,5 +73,20 @@ public class ReservationServiceImpl implements ReservationService {
         reservationSeatDao.deleteByReservationId(reservationId);
         paymentDao.deletePaymentByReservationId(reservationId);
         reservationDao.delete(reservationId);
+    }
+
+    @Override
+    public void saveReservationWithSeats(ReservationVO reservation, List<ReservationSeatVO> seatMappings) {
+        try {
+            reservationDao.saveToDB(reservation); // ← 여기만 DB 저장으로 변경
+
+            for (ReservationSeatVO mapping : seatMappings) {
+                reservationSeatDao.insert(mapping);
+                seatDao.updateReservedStatus(mapping.getSeatId(), true);
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("예매 좌석 삽입 실패: " + e.getMessage(), e);
+        }
     }
 }

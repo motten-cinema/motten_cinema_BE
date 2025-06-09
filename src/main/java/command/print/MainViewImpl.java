@@ -3,45 +3,24 @@ package command.print;
 
 import command.*;
 import command.input.InputUtil;
-import movie.service.*;
-import reservation.service.ReservationService;
+import movie.service.MovieService;
+import movie.service.MovieServiceImpl;
 import reservation.service.ReservationServiceImpl;
-import schedule.service.ScheduleService;
 import schedule.service.ScheduleServiceImpl;
-import seat.service.SeatService;
 import seat.service.SeatServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class MainViewImpl {
 
-    private final Map<Integer, Command> commandMap = new HashMap<>();
-
-    public MainViewImpl() {
-        MovieService movieService = new MovieServiceImpl();
-        ScheduleServiceImpl scheduleService = new ScheduleServiceImpl();
-        SeatServiceImpl seatService = new SeatServiceImpl();
-        ReservationServiceImpl reservationService = new ReservationServiceImpl();
-
-        commandMap.put(1, new ReserveTicketCommand(scheduleService, seatService, reservationService));
-        commandMap.put(2, new ShowMovieListCommand(movieService));
-      //  commandMap.put(3, new DummyCommand());
-        commandMap.put(4, new ExitCommand());
-    }
-
     public void start() {
-        while (true) {
-            printWelcome();
-            printMenu();
-            int choice = InputUtil.getIntInRange(">> SELECT OPTION: ", 1, 4);
-            Command command = commandMap.get(choice);
-            if (command != null) command.execute();
-            if (choice == 4) break;
-        }
+        MainCommand mainCommand = new MainCommand();
+        mainCommand.execute();
     }
 
-    private void printWelcome() {
+    public static void printWelcome() {
         System.out.println("""
                 ███╗   ███╗ ██████╗ ██╗   ██╗██╗███████╗
                 ████╗ ████║██╔═══██╗██║   ██║██║██╔════╝
@@ -52,9 +31,15 @@ public class MainViewImpl {
                        ░░░  M  O  V  I  E  ░░░
                       🎞️ PRESS START TO WATCH 🎬
                 """);
+        System.out.println("\n>> Press ENTER to start...");
+        try {
+            System.in.read();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private void printMenu() {
+    public static void printMenu() {
         System.out.println("""
                 ◉ ◉ ◉  MOVIE RESERVATION SYSTEM  ◉ ◉ ◉
                 ----------------------------------------

@@ -2,8 +2,10 @@ package reservation.service;
 
 import reservation.domain.ReservationInfoVO;
 import reservation.domain.ReservationVO;
+import seat.domain.ReservationSeatVO;
 import seat.domain.SeatVO;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ReservationService {
@@ -19,7 +21,8 @@ public interface ReservationService {
   // 예매/좌석/결제정보 삭제
   void deleteReservationById(String reservationId);
 
-
+  //예매-좌석 정보를 저장
+  void saveReservationWithSeats(ReservationVO reservation, List<ReservationSeatVO> seatMappings);
 
 //  private String reservationId;
 //  private int scheduleId;

@@ -1,8 +1,12 @@
 package reservation.dao;
 
+import database.JDBCUtil;
 import reservation.domain.ReservationVO;
 
 import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -103,6 +107,26 @@ public class ReservationDaoImpl implements ReservationDao {
       }
     } catch (IOException e) {
       e.printStackTrace();
+    }
+  }
+  @Override
+  public void saveToDB(ReservationVO r) {
+    String sql = "INSERT INTO reservation (reservation_id, schedule_id, total_person, total_price, reservation_time, status) VALUES (?, ?, ?, ?, ?, ?)";
+
+    try (Connection conn = JDBCUtil.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+      pstmt.setString(1, r.getReservationId());
+      pstmt.setInt(2, r.getScheduleId());
+      pstmt.setInt(3, r.getTotalPerson());
+      pstmt.setInt(4, r.getTotalPrice());
+      pstmt.setTimestamp(5, r.getReservationTime());
+      pstmt.setString(6, r.getStatus());
+
+      pstmt.executeUpdate();
+
+    } catch (SQLException e) {
+      throw new RuntimeException("예약 정보 DB 저장 실패: " + e.getMessage(), e);
     }
   }
 }
