@@ -26,7 +26,7 @@ public class ReservationCheckCommand implements Command {
             System.out.println("1. 🔎 예매 확인");
             System.out.println("2. ❌ 예매 취소");
             System.out.println("[Q] 🏠 홈으로");
-            String input = InputUtil.nextInput("\u001B[32m 👉 입력: \u001B[0m").trim();
+            String input = InputUtil.nextInput("\u001B[35m 👉 입력: \u001B[0m").trim();
 
             if (input.equalsIgnoreCase("Q")) {
                 System.out.println("🏠 홈으로 돌아갑니다.");
@@ -46,7 +46,7 @@ public class ReservationCheckCommand implements Command {
         System.out.println("◉ ◉ ◉ ◉ ◉  🔍 CHECK RESERVATION  ◉ ◉ ◉ ◉ ◉");
         printLine();
         String reservationId = InputUtil.nextInput("📌 확인하실 예매 번호를 입력하세요\n👉" +
-                "\u001B[32m  입력: \u001B[0m").trim();
+                "\u001B[35m  입력: \u001B[0m").trim();
 
         ReservationVO reservation =  reservationService.findReservationById(reservationId);
         if (reservation == null) {
@@ -82,7 +82,7 @@ public class ReservationCheckCommand implements Command {
         printLine();
 
         String reservationId = InputUtil.nextInput("📌 예매 번호를 입력하세요\n👉 " +
-                "\u001B[32m 입력: \u001B[0m").trim();
+                "\u001B[35m 입력: \u001B[0m").trim();
 
         ReservationVO reservation = reservationService.findReservationById(reservationId);
         if (reservation == null) {
@@ -102,7 +102,7 @@ public class ReservationCheckCommand implements Command {
             return;
         }
 
-        String confirm = InputUtil.nextInput("\u001B[32m ❓ 정말 예매를 취소하시겠습니까? (Y/N): \u001B[0m").trim();
+        String confirm = InputUtil.nextInput("\u001B[35m ❓ 정말 예매를 취소하시겠습니까? (Y/N): \u001B[0m").trim();
         if (!confirm.equalsIgnoreCase("Y")) {
             System.out.println("❌ 예매 취소가 취소되었습니다.");
             return;

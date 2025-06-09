@@ -48,7 +48,7 @@ public class ReservationViewImpl{
         int cols = 6;
 
         String gray = "\u001B[90m";
-        String green = "\u001B[32m";
+        String blue = "\u001B[34m";
         String reset = "\u001B[0m";
 
         System.out.println("\n💺 좌석 배치도");
@@ -65,7 +65,7 @@ public class ReservationViewImpl{
                 String code = row + col;
                 if (seatMap.containsKey(code)) {
                     boolean reserved = seatMap.get(code);
-                    String color = reserved ? gray : green;
+                    String color = reserved ? gray : blue;
                     System.out.printf("|%s%s%s|   ", color, code, reset);
                 } else {
                     System.out.printf("|__|   ");
@@ -91,10 +91,7 @@ public class ReservationViewImpl{
         System.out.println("\uD83D\uDCC5 날짜 :" + screenDate);
         System.out.println("⏰ 상영 시간 :" + startTime);
         System.out.println("\uD83D\uDC65 인원 수 :" + totalPeople);
-        System.out.print("\uD83D\uDCBA 선택 좌석 :");
-        for (String seat : seats) {
-            System.out.print(seat);
-        }
+        System.out.println("\uD83D\uDCBA 선택 좌석 : " + String.join(", ", seats));
         System.out.println();
         System.out.println("\uD83D\uDCB0 총 금액 :" + totalPrice);
     }

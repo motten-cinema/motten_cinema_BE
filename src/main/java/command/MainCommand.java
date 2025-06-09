@@ -37,7 +37,7 @@ public class MainCommand implements Command {
             }
 
             MainViewImpl.printMenu();
-            String input = InputUtil.nextInput("\u001B[32m >> SELECT OPTION: ");
+            String input = InputUtil.nextInput("\u001B[35m >> SELECT OPTION: ");
 
             if (input.equalsIgnoreCase("Q")) {
                 System.out.println("🏠 메인 메뉴로 돌아갑니다.");

@@ -45,7 +45,7 @@ public class ReserveTicketCommand implements Command {
         System.out.println("1. 📖 상세보기");
         System.out.println("2. 🎫 예매 바로 진행");
         System.out.println("[Q] 🏠 홈으로");
-        String subChoice = InputUtil.nextInput("\u001B[32m 👉 메뉴 번호를 입력해주세요: \u001B[0m").trim();
+        String subChoice = InputUtil.nextInput("\u001B[35m 👉 메뉴 번호를 입력해주세요: \u001B[0m").trim();
 
         if (subChoice.equalsIgnoreCase("Q")) {
             System.out.println("🏠 홈으로 돌아갑니다.");
@@ -64,7 +64,7 @@ public class ReserveTicketCommand implements Command {
 
                     // 영화 ID 입력
                     String idInput = InputUtil.nextInput("🎬 상세보기를 원하시는 영화의 ID를 입력해주세요\n" +
-                            "\u001B[32m 👉 입력: ").trim();
+                            "\u001B[35m 👉 입력: ").trim();
                     if (idInput.equalsIgnoreCase("Q")) return;
 
                     try {
@@ -99,7 +99,7 @@ public class ReserveTicketCommand implements Command {
     private void startReservation() {
         while (true) {
             System.out.println("🎫 예매할 영화의 ID를 입력해주세요");
-            String input = InputUtil.nextInput("\u001B[32m 👉 입력:  \u001B[0m");
+            String input = InputUtil.nextInput("\u001B[35m 👉 입력:  \u001B[0m");
 
             if (input.equalsIgnoreCase("Q")) {
                 System.out.println("🏠 홈으로 돌아갑니다.");
@@ -121,7 +121,7 @@ public class ReserveTicketCommand implements Command {
                         .toList();
 
                 ReservationViewImpl.printDateSelectionMenu(dates);
-                int dateOption = InputUtil.getIntInRange("\u001B[32m 👉 입력:  \u001B[0m", 1, dates.size());
+                int dateOption = InputUtil.getIntInRange("\u001B[35m 👉 입력:  \u001B[0m", 1, dates.size());
                 LocalDate selectedDate = dates.get(dateOption - 1);
 
                 List<ScheduleVO> times = schedules.stream()
@@ -130,7 +130,7 @@ public class ReserveTicketCommand implements Command {
                         .toList();
 
                 ReservationViewImpl.printTimeSelection(times);
-                int timeOption = InputUtil.getIntInRange("\u001B[32m 👉 입력:  \u001B[0m", 1, times.size());
+                int timeOption = InputUtil.getIntInRange("\u001B[35m 👉 입력:  \u001B[0m", 1, times.size());
                 ScheduleVO selectedSchedule = times.get(timeOption - 1);
                 int scheduleId = selectedSchedule.getScheduleId();
 
@@ -141,7 +141,7 @@ public class ReserveTicketCommand implements Command {
                 List<String> selectedCodes;
 
                 while (true) {
-                    String[] seatCodes = InputUtil.nextSeatCodes("\u001B[32m 👉 예매할 좌석을 입력해주세요 (예: A1 A3):  \u001B[0m");
+                    String[] seatCodes = InputUtil.nextSeatCodes("\u001B[35m 👉 예매할 좌석을 입력해주세요 (예: A1 A3):  \u001B[0m");
                     selectedCodes = List.of(seatCodes);
 
                     // 입력한 좌석 중 예약된 좌석이 있는지 검사
@@ -172,7 +172,7 @@ public class ReserveTicketCommand implements Command {
                 reservationService.saveReservationWithSeats(reservation, reservationSeats);
 
                 ReservationViewImpl.printPaymentInfo("", selectedSchedule.getScreenDate(), selectedSchedule.getStartTime(), personCount, selectedCodes, totalPrice);
-                String confirm = InputUtil.nextInput("\u001B[32m 👉 결제를 진행하시겠습니까? (y/n):  \u001B[0m");
+                String confirm = InputUtil.nextInput("\u001B[35m 👉 결제를 진행하시겠습니까? (y/n):  \u001B[0m");
                 if (!confirm.equalsIgnoreCase("y")) {
                     System.out.println("❌ 결제가 취소되었습니다.");
                     return;
@@ -180,9 +180,9 @@ public class ReserveTicketCommand implements Command {
 
                 boolean useReceipt = false;
                 String phone = null;
-                String receipt = InputUtil.nextInput("\u001B[32m 🧾 현금영수증을 발급하시겠습니까? (y/n):  \u001B[0m");
+                String receipt = InputUtil.nextInput("\u001B[35m 🧾 현금영수증을 발급하시겠습니까? (y/n):  \u001B[0m");
                 if (receipt.equalsIgnoreCase("y")) {
-                    phone = InputUtil.nextInput("\u001B[32m 📱 전화번호를 입력해주세요:  \u001B[0m");
+                    phone = InputUtil.nextInput("\u001B[35m 📱 전화번호를 입력해주세요:  \u001B[0m");
                     useReceipt = true;
                     System.out.println("✅ 현금영수증 발급 완료 (전화번호: " + phone + ")");
                 }
