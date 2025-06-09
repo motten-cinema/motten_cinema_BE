@@ -1,6 +1,6 @@
 package command;
 
-import command.input.InputUtil;
+import command.util.InputUtil;
 import command.print.MainViewImpl;
 import movie.service.*;
 import reservation.service.ReservationServiceImpl;
@@ -22,7 +22,7 @@ public class MainCommand implements Command {
 
         commandMap.put(1, new ReserveTicketCommand(scheduleService, seatService, reservationService));
         commandMap.put(2, new ShowMovieListCommand(movieService));
-        //commandMap.put(3, new ReservationCheckCommand(reservationService));
+        commandMap.put(3, new ReservationCheckCommand(reservationService));
         commandMap.put(4, new ExitCommand());
     }
 
@@ -37,7 +37,7 @@ public class MainCommand implements Command {
             }
 
             MainViewImpl.printMenu();
-            String input = InputUtil.nextInput(">> SELECT OPTION: ");
+            String input = InputUtil.nextInput("\u001B[32m >> SELECT OPTION: ");
 
             if (input.equalsIgnoreCase("Q")) {
                 System.out.println("🏠 메인 메뉴로 돌아갑니다.");

@@ -70,6 +70,26 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public void deleteReservationById(String reservationId) {
+        ReservationVO reservation = reservationDao.findById(reservationId);
+
+        if (reservation == null) {
+            System.out.println("존재하지 않는 예매 번호입니다.");
+            return;
+        }
+
+        // 예매 상태 확인
+        if (!"예매완료".equals(reservation.getStatus())) {
+            System.out.println("⚠️ 아직 예약이 완료되지 않아 예매 취소를 진행할 수 없습니다.");
+            return;
+        }
+
+        // 좌석 예약 상태 해제
+        List<Integer> seatIds = reservationSeatDao.findSeatIdsByReservationId(reservationId);
+        for (int seatId : seatIds) {
+            seatDao.updateReservedStatus(seatId, false); // 좌석을 다시 비움
+        }
+
+        // 삭제 진행
         reservationSeatDao.deleteByReservationId(reservationId);
         paymentDao.deletePaymentByReservationId(reservationId);
         reservationDao.delete(reservationId);
@@ -88,5 +108,18 @@ public class ReservationServiceImpl implements ReservationService {
         } catch (Exception e) {
             throw new RuntimeException("예매 좌석 삽입 실패: " + e.getMessage(), e);
         }
+    }
+    @Override
+    public ReservationVO findReservationById(String reservationId) {
+        return reservationDao.findById(reservationId);
+    }
+
+    @Override
+    public List<String> getSeatCodesFromIds(List<Integer> seatIds) {
+        return seatIds.stream()
+                .map(seatDao::findById)
+                .filter(seat -> seat != null)
+                .map(SeatVO::getSeatCode)
+                .toList();
     }
 }

@@ -3,24 +3,26 @@ package command.print;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import static command.util.ConsoleUtil.printLine;
 
 public class ReservationManagementViewImpl {
 
     public static void printCheckReservation(String title, LocalDate screenDate, LocalDateTime startTime, int totalPeople, List<String> seats, int totalPrice) {
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
+
         System.out.println("\uD83C\uDF9F RESERVATION INFO");
         System.out.println("\uD83C\uDFAC 영화 제목 : " + title);
-        System.out.println("\uD83D\uDCC5 날짜 :" + screenDate);
-        System.out.println("⏰ 상영 시간 :" + startTime);
+        System.out.println("\uD83D\uDCC5 날짜 : " + screenDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
+        System.out.println("⏰ 상영 시간 : " + startTime.format(formatter));
         System.out.println("\uD83D\uDC65 인원 수 :" + totalPeople);
-        System.out.print("\uD83D\uDCBA 선택 좌석 :");
-        for (String seat : seats) {
-            System.out.print(seat);
-        }
+        System.out.println("\uD83D\uDCBA 선택 좌석 : " + String.join(", ", seats));
         System.out.println();
-        System.out.println("\uD83D\uDCB0 총 금액 :" + totalPrice);
-        ReservationViewImpl.printLine();
+        System.out.println("\uD83D\uDCB0 총 금액 :" + totalPrice + "원");
+        printLine();
     }
 
     public static void printCancelReservation(String reservationId, int totalPrice) {

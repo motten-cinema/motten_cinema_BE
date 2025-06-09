@@ -24,6 +24,8 @@ public interface ReservationService {
   //예매-좌석 정보를 저장
   void saveReservationWithSeats(ReservationVO reservation, List<ReservationSeatVO> seatMappings);
 
+  ReservationVO findReservationById(String reservationId);
+  List<String> getSeatCodesFromIds(List<Integer> seatIds);
 //  private String reservationId;
 //  private int scheduleId;
 //  private int totalPerson;

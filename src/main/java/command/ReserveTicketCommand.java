@@ -1,6 +1,6 @@
 package command;
 
-import command.input.InputUtil;
+import command.util.InputUtil;
 import command.print.MovieViewImpl;
 import command.print.ReservationViewImpl;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static command.util.ConsoleUtil.printLine;
+
 
 //영화 예매
 @RequiredArgsConstructor
@@ -38,12 +40,12 @@ public class ReserveTicketCommand implements Command {
     @Override
     public void execute() {
         ReservationViewImpl.printMovieHeader();
-        ReservationViewImpl.printLine();
+        printLine();
 
         System.out.println("1. 📖 상세보기");
         System.out.println("2. 🎫 예매 바로 진행");
         System.out.println("[Q] 🏠 홈으로");
-        String subChoice = InputUtil.nextInput("👉 메뉴 번호를 입력해주세요: ").trim();
+        String subChoice = InputUtil.nextInput("\u001B[32m 👉 메뉴 번호를 입력해주세요: \u001B[0m").trim();
 
         if (subChoice.equalsIgnoreCase("Q")) {
             System.out.println("🏠 홈으로 돌아갑니다.");
@@ -61,7 +63,8 @@ public class ReserveTicketCommand implements Command {
             MovieViewImpl.printMovieList(); // 영화 목록 출력
 
                     // 영화 ID 입력
-                    String idInput = InputUtil.nextInput("🎬 상세보기를 원하시는 영화의 ID를 입력해주세요\n👉 입력: ").trim();
+                    String idInput = InputUtil.nextInput("🎬 상세보기를 원하시는 영화의 ID를 입력해주세요\n" +
+                            "\u001B[32m 👉 입력: ").trim();
                     if (idInput.equalsIgnoreCase("Q")) return;
 
                     try {
@@ -80,7 +83,10 @@ public class ReserveTicketCommand implements Command {
                                 }
                             }
                         } else {
-                            System.out.println("❌ 해당 ID의 영화를 찾을 수 없습니다.");
+                            System.out.println("""
+                                    ❌ 해당 ID의 영화를 찾을 수 없습니다.
+                                       😠😠😠 홈으로 돌아갑니다! \n
+                                    """);
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("❌ 숫자를 입력하거나 Q를 입력하세요.");
@@ -93,7 +99,7 @@ public class ReserveTicketCommand implements Command {
     private void startReservation() {
         while (true) {
             System.out.println("🎫 예매할 영화의 ID를 입력해주세요");
-            String input = InputUtil.nextInput("👉 입력: ");
+            String input = InputUtil.nextInput("\u001B[32m 👉 입력:  \u001B[0m");
 
             if (input.equalsIgnoreCase("Q")) {
                 System.out.println("🏠 홈으로 돌아갑니다.");
@@ -115,7 +121,7 @@ public class ReserveTicketCommand implements Command {
                         .toList();
 
                 ReservationViewImpl.printDateSelectionMenu(dates);
-                int dateOption = InputUtil.getIntInRange("👉 입력: ", 1, dates.size());
+                int dateOption = InputUtil.getIntInRange("\u001B[32m 👉 입력:  \u001B[0m", 1, dates.size());
                 LocalDate selectedDate = dates.get(dateOption - 1);
 
                 List<ScheduleVO> times = schedules.stream()
@@ -124,15 +130,32 @@ public class ReserveTicketCommand implements Command {
                         .toList();
 
                 ReservationViewImpl.printTimeSelection(times);
-                int timeOption = InputUtil.getIntInRange("👉 입력: ", 1, times.size());
+                int timeOption = InputUtil.getIntInRange("\u001B[32m 👉 입력:  \u001B[0m", 1, times.size());
                 ScheduleVO selectedSchedule = times.get(timeOption - 1);
                 int scheduleId = selectedSchedule.getScheduleId();
 
                 Map<String, Boolean> seatMap = seatService.getSeatStatusMap(scheduleId);
                 ReservationViewImpl.printSeatLayout(seatMap);
-                String[] seatCodes = InputUtil.nextSeatCodes("👉 예매할 좌석을 입력해주세요 (예: A1 A3): ");
 
-                int personCount = seatCodes.length;
+                List<String> validCodes = seatMap.keySet().stream().toList();
+                List<String> selectedCodes;
+
+                while (true) {
+                    String[] seatCodes = InputUtil.nextSeatCodes("\u001B[32m 👉 예매할 좌석을 입력해주세요 (예: A1 A3):  \u001B[0m");
+                    selectedCodes = List.of(seatCodes);
+
+                    // 입력한 좌석 중 예약된 좌석이 있는지 검사
+                    boolean hasReserved = selectedCodes.stream()
+                            .anyMatch(code -> !seatMap.containsKey(code) || seatMap.get(code));
+
+                    if (hasReserved) {
+                        System.out.println("❌ 입력한 좌석 중 선택 불가한 좌석이 있습니다. 다시 선택해주세요.");
+                        continue;
+                    }
+                    break;
+                }
+
+                int personCount = selectedCodes.size();
                 int totalPrice = personCount * 12000;
                 String reservationId = "FD" + (int)(Math.random() * 900 + 100);
 
@@ -142,14 +165,14 @@ public class ReserveTicketCommand implements Command {
                         personCount,
                         totalPrice,
                         Timestamp.valueOf(LocalDateTime.now()),
-                        "CONFIRMED"
+                        "예매완료"
                 );
 
-                List<ReservationSeatVO> reservationSeats = seatService.convertSeatCodesToReservationSeats(reservationId, List.of(seatCodes));
+                List<ReservationSeatVO> reservationSeats = seatService.convertSeatCodesToReservationSeats(reservationId, selectedCodes);
                 reservationService.saveReservationWithSeats(reservation, reservationSeats);
 
-                ReservationViewImpl.printPaymentInfo("", selectedSchedule.getScreenDate(), selectedSchedule.getStartTime(), personCount, List.of(seatCodes), totalPrice);
-                String confirm = InputUtil.nextInput("👉 결제를 진행하시겠습니까? (y/n): ");
+                ReservationViewImpl.printPaymentInfo("", selectedSchedule.getScreenDate(), selectedSchedule.getStartTime(), personCount, selectedCodes, totalPrice);
+                String confirm = InputUtil.nextInput("\u001B[32m 👉 결제를 진행하시겠습니까? (y/n):  \u001B[0m");
                 if (!confirm.equalsIgnoreCase("y")) {
                     System.out.println("❌ 결제가 취소되었습니다.");
                     return;
@@ -157,9 +180,9 @@ public class ReserveTicketCommand implements Command {
 
                 boolean useReceipt = false;
                 String phone = null;
-                String receipt = InputUtil.nextInput("🧾 현금영수증을 발급하시겠습니까? (y/n): ");
+                String receipt = InputUtil.nextInput("\u001B[32m 🧾 현금영수증을 발급하시겠습니까? (y/n):  \u001B[0m");
                 if (receipt.equalsIgnoreCase("y")) {
-                    phone = InputUtil.nextInput("📱 전화번호를 입력해주세요: ");
+                    phone = InputUtil.nextInput("\u001B[32m 📱 전화번호를 입력해주세요:  \u001B[0m");
                     useReceipt = true;
                     System.out.println("✅ 현금영수증 발급 완료 (전화번호: " + phone + ")");
                 }

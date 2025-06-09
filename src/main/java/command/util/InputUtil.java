@@ -1,7 +1,5 @@
-package command.input;
+package command.util;
 
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Scanner;
 
 public class InputUtil {
