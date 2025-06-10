@@ -5,6 +5,8 @@ import command.print.MovieViewImpl;
 
 import java.util.Scanner;
 
+import static command.util.ConsoleUtil.waitForQ;
+
 public class ShowMovieListCommand implements Command {
     private final MovieService movieService;
 
@@ -42,7 +44,7 @@ public class ShowMovieListCommand implements Command {
                         return;
                     }
 
-                    waitForQuit(sc);
+                    waitForQ();
                 }
 
                 case "2" -> {
@@ -62,7 +64,7 @@ public class ShowMovieListCommand implements Command {
                         int genreNum = Integer.parseInt(genreInput);
                         if (genreNum >= 1 && genreNum <= genres.length) {
                             MovieViewImpl.printFilteredByGenre(genres[genreNum - 1]);
-                            waitForQuit(sc);
+                            waitForQ();
                         } else {
                             System.out.println("❗ 번호를 1~8 사이로 입력해주세요.");
                         }
@@ -76,16 +78,4 @@ public class ShowMovieListCommand implements Command {
         }
     }
 
-    // 🔁 공통 Q 처리 메서드
-    private void waitForQuit(Scanner sc) {
-        while (true) {
-            System.out.print("\n[Q] 🏠 이전으로: ");
-            String backInput = sc.nextLine().trim();
-            if (backInput.equalsIgnoreCase("q")) {
-                break;
-            } else {
-                System.out.println("❗ 'Q'를 눌러야 홈으로 돌아갈 수 있습니다.");
-            }
-        }
-    }
 }

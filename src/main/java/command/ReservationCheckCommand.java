@@ -10,6 +10,7 @@ import reservation.service.ReservationService;
 import java.util.List;
 
 import static command.util.ConsoleUtil.printLine;
+import static command.util.ConsoleUtil.waitForQ;
 
 @RequiredArgsConstructor
 public class ReservationCheckCommand implements Command {
@@ -36,7 +37,7 @@ public class ReservationCheckCommand implements Command {
             switch (input) {
                 case "1" -> checkReservation();
                 case "2" -> cancelReservation();
-                default -> System.out.println("올바른 메뉴 번호를 입력해주세요.");
+                default -> System.out.println("❗ 올바른 메뉴 번호를 입력해주세요.");
             }
         }
     }
@@ -114,11 +115,4 @@ public class ReservationCheckCommand implements Command {
         waitForQ();
     }
 
-    private void waitForQ() {
-        while (true) {
-            String back = InputUtil.nextInput("[Q] 🏠 이전으로: ").trim();
-            if (back.equalsIgnoreCase("Q")) break;
-            System.out.println("❗ Q를 입력하셔야 이전으로 돌아갑니다.");
-        }
-    }
 }
