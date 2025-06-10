@@ -52,13 +52,13 @@ public class ReservationViewImpl{
         String reset = "\u001B[0m";
 
         System.out.println("\n💺 좌석 배치도");
-        System.out.println(" ========================================");
+        System.out.println("\u001B[90m ========================================");
         System.out.println("║   ___   ___  _ __   ___   ___  _ __    ║");
         System.out.println("║  / __| / __|| '__| / _ \\ / _ \\| '_ \\   ║");
         System.out.println("║  \\__ \\| (__ | |   |  __/|  __/| | | |  ║");
         System.out.println("║  |___/ \\___||_|    \\___| \\___||_| |_|  ║");
         System.out.println("║                                        ║");
-        System.out.println(" ========================================\n");
+        System.out.println(" ========================================\u001B[0m \n");
 
         for (String row : rows) {
             for (int col = 1; col <= cols; col++) {

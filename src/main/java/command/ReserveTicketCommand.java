@@ -87,7 +87,7 @@ public class ReserveTicketCommand implements Command {
                                 if (back.equalsIgnoreCase("Q")) {
                                     return;
                                 } else {
-                                    System.out.println("❗ Q를 입력하셔야 홈으로 돌아갑니다.");
+                                    System.out.println("❗ Q를 입력하셔야 이전으로 돌아갑니다.");
                                 }
                             }
                         } else {
@@ -178,8 +178,9 @@ public class ReserveTicketCommand implements Command {
 
                 List<ReservationSeatVO> reservationSeats = seatService.convertSeatCodesToReservationSeats(reservationId, selectedCodes);
                 reservationService.saveReservationWithSeats(reservation, reservationSeats);
+                Optional<MovieVO> movieVO = movieService.getById(movieId);
 
-                ReservationViewImpl.printPaymentInfo("", selectedSchedule.getScreenDate(), selectedSchedule.getStartTime(), personCount, selectedCodes, totalPrice);
+                ReservationViewImpl.printPaymentInfo(movieVO.get().getTitle(), selectedSchedule.getScreenDate(), selectedSchedule.getStartTime(), personCount, selectedCodes, totalPrice);
                 String confirm = InputUtil.nextInput("\u001B[35m 👉 결제를 진행하시겠습니까? (y/n):  \u001B[0m");
                 if (!confirm.equalsIgnoreCase("y")) {
                     System.out.println("❌ 결제가 취소되었습니다.");
