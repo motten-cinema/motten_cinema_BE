@@ -49,6 +49,9 @@ public class MainCommand implements Command {
                 Command command = commandMap.get(choice);
                 if (command != null) {
                     command.execute();
+                    if (choice != 4) {
+                        printReturningToMain();
+                    }
                 } else {
                     System.out.println("올바른 메뉴 번호를 입력해주세요.");
                 }
@@ -60,5 +63,16 @@ public class MainCommand implements Command {
             }
         }
     }
-
+    private void printReturningToMain() {
+        System.out.println("\n🏠 메인 메뉴로 돌아갑니다...");
+        try {
+            for (int i = 3; i > 0; i--) {
+                System.out.printf("⏳ %d..\n", i);
+                Thread.sleep(1000);
+            }
+            System.out.println();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 }

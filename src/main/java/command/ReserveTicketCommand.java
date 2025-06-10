@@ -39,26 +39,35 @@ public class ReserveTicketCommand implements Command {
 
     @Override
     public void execute() {
-        ReservationViewImpl.printMovieHeader();
-        printLine();
-        MovieViewImpl.printMovieList();
-        System.out.println("1. 📖 상세보기");
-        System.out.println("2. 🎫 예매 바로 진행");
-        System.out.println("[Q] 🏠 홈으로");
-        String subChoice = InputUtil.nextInput("\u001B[35m 👉 메뉴 번호를 입력해주세요: \u001B[0m").trim();
+        while (true) {
+            ReservationViewImpl.printMovieHeader();
+            printLine();
+            MovieViewImpl.printMovieList();
+            System.out.println("1. 📖 상세보기");
+            System.out.println("2. 🎫 예매 바로 진행");
+            System.out.println("[Q] 🏠 홈으로");
 
-        if (subChoice.equalsIgnoreCase("Q")) {
-            System.out.println("🏠 홈으로 돌아갑니다.");
-            return;
-        }
+            String subChoice;
 
-        switch (subChoice) {
-            case "1" -> startDetailView();
-            case "2" -> startReservation();
-            default -> System.out.println("❌ 올바른 메뉴 번호를 입력해주세요.");
+            while (true) {
+                subChoice = InputUtil.nextInput("\u001B[35m 👉 메뉴 번호를 입력해주세요: \u001B[0m").trim();
+
+                if (subChoice.equalsIgnoreCase("Q")) {
+                    System.out.println("🏠 홈으로 돌아갑니다.");
+                    return;
+                }
+
+                if (subChoice.equals("1") || subChoice.equals("2")) break;
+
+                System.out.println("❗ 올바른 메뉴 번호를 입력해주세요.");
+            }
+
+            switch (subChoice) {
+                case "1" -> startDetailView();
+                case "2" -> startReservation();
+            }
         }
     }
-
     private void startDetailView() {
 
                     // 영화 ID 입력

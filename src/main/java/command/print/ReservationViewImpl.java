@@ -74,14 +74,6 @@ public class ReservationViewImpl{
             System.out.println();
         }
     }
-    public static void printInvalidMovieId() {
-        printLine();
-        System.out.println("❌ 입력하신 ID의 영화를 찾지 못했습니다. 다시 입력해주세요.");
-        printLine();
-        System.out.println("[R] 🔁 다시 입력하기");
-        System.out.println("[Q] 🏠 홈으로");
-        System.out.print("👉 입력: ");
-    }
 
     public static void printPaymentInfo(String title, LocalDate screenDate, LocalTime startTime, int totalPeople, List<String> seats, int totalPrice) {
         printLine();
