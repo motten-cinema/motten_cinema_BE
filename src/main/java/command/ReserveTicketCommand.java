@@ -83,7 +83,7 @@ public class ReserveTicketCommand implements Command {
 
                             // 홈으로 대기
                             while (true) {
-                                String back = InputUtil.nextInput("[Q] 🏠 홈으로: ").trim();
+                                String back = InputUtil.nextInput("[Q] 🏠 이전으로: ").trim();
                                 if (back.equalsIgnoreCase("Q")) {
                                     return;
                                 } else {
