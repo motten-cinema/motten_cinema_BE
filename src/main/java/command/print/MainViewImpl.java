@@ -1,9 +1,70 @@
 package command.print;
 
 
-public class MainViewImpl  {
-    public void printExitHome(){
-        System.out.println("----------------------------------------");
-        System.out.println("[Q] \uD83C\uDFE0 홈으로");
+import command.*;
+
+import java.io.IOException;
+
+import static command.util.ConsoleUtil.printLine;
+
+public class MainViewImpl {
+
+    public void start() {
+        MainCommand mainCommand = new MainCommand();
+        mainCommand.execute();
     }
+
+    public static void printWelcome() {
+        System.out.println("""
+                \u001B[35m
+                ███╗   ███╗ ██████╗ ██╗   ██╗██╗███████╗
+                ████╗ ████║██╔═══██╗██║   ██║██║██╔════╝
+                ██╔████╔██║██║   ██║██║   ██║██║█████╗  
+                ██║╚██╔╝██║██║   ██║╚██╗ ██╔╝██║██╔══╝  
+                ██║ ╚═╝ ██║╚██████╔╝ ╚████╔╝ ██║███████╗
+                ╚═╝     ╚═╝ ╚═════╝   ╚═══╝  ╚═╝╚══════╝
+                \u001B[0m
+                      ░░░ M  O  V  I  E ░░░
+                    \u001B[34m 🎞️ Press ENTER to start 🎬\u001B[0m
+                """);
+
+        try {
+            int input;
+            boolean entered = false;
+            while (!entered) {
+                input = System.in.read();
+                if (input == '\n' || input == '\r') {
+                    entered = true;
+                } else {
+                    while (System.in.available() > 0) {
+                        System.in.read();
+                    }
+                    System.out.println("\u001B[31m ENTER 키만 눌러주세요!\u001B[0m");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void printMenu() {
+        printLine();
+        System.out.println("◉ ◉ ◉  MOVIE RESERVATION SYSTEM  ◉ ◉ ◉");
+        printLine();
+
+        System.out.println("""
+                \u001B[34m 1. 🎟 예매하기 \u001B[0m
+                    1-1. 상세보기
+                    1-2. 바로 예매
+                \u001B[34m 2. 🔍 영화 조회 \u001B[0m
+                    2-1. 별점 순 정렬
+                    2-2. 장르 별 필터
+                \u001B[34m 3. 🧾 예매 확인/취소 \u001B[0m
+                    3-1. 예매 확인 (예매 번호 조회)
+                    3-2. 예매 취소 (좌석 반환 및 환불 정책)
+                \u001B[34m 4. ✖ 종료 \u001B[0m
+                ----------------------------------------
+                """);
+    }
+
 }

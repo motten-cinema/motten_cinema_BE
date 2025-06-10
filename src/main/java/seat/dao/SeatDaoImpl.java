@@ -6,6 +6,7 @@ import database.JDBCUtil;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class SeatDaoImpl implements SeatDao {
     
@@ -75,6 +76,24 @@ public class SeatDaoImpl implements SeatDao {
         }
 
         return null; // 해당 ID가 없을 경우 null 반환
+    }
+    @Override
+    public Optional<SeatVO> findBySeatCode(String seatCode) {
+        String sql = "SELECT * FROM seat WHERE seat_code = ?";
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, seatCode);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return Optional.of(map(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("좌석 코드로 조회 실패: " + e.getMessage(), e);
+        }
+
+        return Optional.empty(); // 해당 코드가 없을 경우
     }
     private SeatVO map(ResultSet rs) throws SQLException {
         return SeatVO.builder()

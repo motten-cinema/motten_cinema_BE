@@ -1,7 +1,5 @@
-package command.input;
+package command.util;
 
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Scanner;
 
 public class InputUtil {
@@ -32,6 +30,13 @@ public class InputUtil {
             }
         }
     }
+
+    //입력
+    public static String nextInput(String prompt) {
+            System.out.print(prompt);
+            return sc.nextLine();
+        }
+
 
     // 좌석 입력
     public static String[] nextSeatCodes(String prompt) {

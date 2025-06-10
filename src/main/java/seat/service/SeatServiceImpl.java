@@ -2,6 +2,7 @@ package seat.service;
 
 import seat.dao.SeatDao;
 import seat.dao.SeatDaoImpl;
+import seat.domain.ReservationSeatVO;
 import seat.domain.SeatVO;
 
 import java.util.HashMap;
@@ -33,6 +34,23 @@ public class SeatServiceImpl implements SeatService {
         }
 
         return seatMap;
+    }
+
+    @Override
+    public List<ReservationSeatVO> convertSeatCodesToReservationSeats(String reservationId, List<String> seatCodes) {
+        List<ReservationSeatVO> reservationSeats = new ArrayList<>();
+        for (String code : seatCodes) {
+            Optional<SeatVO> seat = seatDao.findBySeatCode(code);
+            if (seat.isPresent()) {
+                reservationSeats.add(ReservationSeatVO.builder()
+                        .reservationId(reservationId)
+                        .seatId(seat.get().getSeatId())
+                        .build());
+            } else {
+                System.out.println("❌ 좌석 코드 " + code + " 에 해당하는 좌석을 찾을 수 없습니다.");
+            }
+        }
+        return reservationSeats;
     }
 }
 

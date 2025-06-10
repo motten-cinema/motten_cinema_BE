@@ -1,9 +1,10 @@
 package reservation.dao;
 
+import database.JDBCUtil;
 import reservation.domain.ReservationVO;
 
 import java.io.*;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,10 +32,27 @@ public class ReservationDaoImpl implements ReservationDao {
 
   @Override
   public ReservationVO findById(String reservationId) {
-    return findAll().stream()
-      .filter(r -> r.getReservationId().equals(reservationId))
-      .findFirst()
-      .orElse(null);
+    String sql = "SELECT * FROM reservation WHERE reservation_id  = ?";
+    try (Connection conn = JDBCUtil.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+      pstmt.setString(1, reservationId);
+      try (ResultSet rs = pstmt.executeQuery()) {
+        if (rs.next()) {
+          return new ReservationVO(
+                  rs.getString("reservation_id"),
+                  rs.getInt("schedule_id"),
+                  rs.getInt("total_person"),
+                  rs.getInt("total_price"),
+                  rs.getTimestamp("reservation_time"),
+                  rs.getString("status")
+          );
+        }
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException("DB에서 예매 정보 조회 실패: " + e.getMessage(), e);
+    }
+    return null; // 조회 결과 없을 경우
   }
 
   @Override
@@ -86,23 +104,36 @@ public class ReservationDaoImpl implements ReservationDao {
 
   @Override
   public void delete(String reservationId) {
-    List<ReservationVO> all = findAll();
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
-      for (ReservationVO r : all) {
-        if (!r.getReservationId().equals(reservationId)) {
-          writer.write(String.join(",", Arrays.asList(
-            r.getReservationId(),
-            String.valueOf(r.getScheduleId()),
-            String.valueOf(r.getTotalPerson()),
-            String.valueOf(r.getTotalPrice()),
-            r.getReservationTime().toString(),
-            r.getStatus()
-          )));
-          writer.newLine();
-        }
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
+    String sql = "DELETE FROM reservation WHERE reservation_id = ?";
+    try (Connection conn = JDBCUtil.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+      pstmt.setString(1, reservationId);
+      pstmt.executeUpdate();
+
+    } catch (SQLException e) {
+      throw new RuntimeException(" 예약 삭제 실패: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void saveToDB(ReservationVO r) {
+    String sql = "INSERT INTO reservation (reservation_id, schedule_id, total_person, total_price, reservation_time, status) VALUES (?, ?, ?, ?, ?, ?)";
+
+    try (Connection conn = JDBCUtil.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+      pstmt.setString(1, r.getReservationId());
+      pstmt.setInt(2, r.getScheduleId());
+      pstmt.setInt(3, r.getTotalPerson());
+      pstmt.setInt(4, r.getTotalPrice());
+      pstmt.setTimestamp(5, r.getReservationTime());
+      pstmt.setString(6, r.getStatus());
+
+      pstmt.executeUpdate();
+
+    } catch (SQLException e) {
+      throw new RuntimeException("예약 정보 DB 저장 실패: " + e.getMessage(), e);
     }
   }
 }

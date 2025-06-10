@@ -9,4 +9,5 @@ public interface ReservationDao {
   List<ReservationVO> findAll();
   void update(ReservationVO reservation);
   void delete(String reservationId);
+  void saveToDB(ReservationVO r);
 }

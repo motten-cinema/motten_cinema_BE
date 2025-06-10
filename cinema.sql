@@ -136,6 +136,35 @@ INSERT INTO seat (schedule_id, seat_code, is_reserved) VALUES
                                                            (5, 'A1', TRUE), (5, 'A2', FALSE), (5, 'A3', FALSE), (5, 'A4', FALSE), (5, 'A5', FALSE), (5, 'A6', FALSE),
                                                            (5, 'B1', FALSE), (5, 'B2', TRUE), (5, 'B3', TRUE), (5, 'B4', FALSE), (5, 'B5', FALSE), (5, 'B6', FALSE),
                                                            (5, 'C1', FALSE), (5, 'C2', FALSE), (5, 'C3', FALSE), (5, 'C4', TRUE), (5, 'C5', FALSE), (5, 'C6', FALSE);
+-- Schedule 6
+INSERT INTO seat (schedule_id, seat_code, is_reserved) VALUES
+                                                           (6, 'A1', FALSE), (6, 'A2', TRUE), (6, 'A3', FALSE), (6, 'A4', FALSE), (6, 'A5', FALSE), (6, 'A6', FALSE),
+                                                           (6, 'B1', TRUE), (6, 'B2', FALSE), (6, 'B3', TRUE), (6, 'B4', FALSE), (6, 'B5', FALSE), (6, 'B6', FALSE),
+                                                           (6, 'C1', FALSE), (6, 'C2', FALSE), (6, 'C3', FALSE), (6, 'C4', FALSE), (6, 'C5', TRUE), (6, 'C6', FALSE);
+
+-- Schedule 7
+INSERT INTO seat (schedule_id, seat_code, is_reserved) VALUES
+                                                           (7, 'A1', FALSE), (7, 'A2', FALSE), (7, 'A3', TRUE), (7, 'A4', FALSE), (7, 'A5', FALSE), (7, 'A6', TRUE),
+                                                           (7, 'B1', FALSE), (7, 'B2', TRUE), (7, 'B3', FALSE), (7, 'B4', TRUE), (7, 'B5', FALSE), (7, 'B6', FALSE),
+                                                           (7, 'C1', TRUE), (7, 'C2', FALSE), (7, 'C3', FALSE), (7, 'C4', FALSE), (7, 'C5', FALSE), (7, 'C6', TRUE);
+
+-- Schedule 8
+INSERT INTO seat (schedule_id, seat_code, is_reserved) VALUES
+                                                           (8, 'A1', FALSE), (8, 'A2', FALSE), (8, 'A3', FALSE), (8, 'A4', TRUE), (8, 'A5', TRUE), (8, 'A6', FALSE),
+                                                           (8, 'B1', FALSE), (8, 'B2', FALSE), (8, 'B3', TRUE), (8, 'B4', TRUE), (8, 'B5', FALSE), (8, 'B6', FALSE),
+                                                           (8, 'C1', FALSE), (8, 'C2', TRUE), (8, 'C3', FALSE), (8, 'C4', FALSE), (8, 'C5', FALSE), (8, 'C6', FALSE);
+
+-- Schedule 9
+INSERT INTO seat (schedule_id, seat_code, is_reserved) VALUES
+                                                           (9, 'A1', TRUE), (9, 'A2', FALSE), (9, 'A3', FALSE), (9, 'A4', TRUE), (9, 'A5', FALSE), (9, 'A6', FALSE),
+                                                           (9, 'B1', FALSE), (9, 'B2', FALSE), (9, 'B3', TRUE), (9, 'B4', FALSE), (9, 'B5', FALSE), (9, 'B6', FALSE),
+                                                           (9, 'C1', TRUE), (9, 'C2', FALSE), (9, 'C3', FALSE), (9, 'C4', FALSE), (9, 'C5', FALSE), (9, 'C6', FALSE);
+
+-- Schedule 10
+INSERT INTO seat (schedule_id, seat_code, is_reserved) VALUES
+                                                           (10, 'A1', FALSE), (10, 'A2', FALSE), (10, 'A3', FALSE), (10, 'A4', TRUE), (10, 'A5', FALSE), (10, 'A6', TRUE),
+                                                           (10, 'B1', TRUE), (10, 'B2', FALSE), (10, 'B3', FALSE), (10, 'B4', FALSE), (10, 'B5', TRUE), (10, 'B6', FALSE),
+                                                           (10, 'C1', FALSE), (10, 'C2', TRUE), (10, 'C3', FALSE), (10, 'C4', FALSE), (10, 'C5', FALSE), (10, 'C6', FALSE);
 
 INSERT INTO Reservation (reservation_id, schedule_id, reservation_time, total_person, total_price,status)
 VALUES
