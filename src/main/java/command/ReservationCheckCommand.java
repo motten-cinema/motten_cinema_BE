@@ -90,7 +90,7 @@ public class ReservationCheckCommand implements Command {
             return;
         }
 
-        // ✅ 예매 상태 확인
+        // 예매 상태 확인
         if (!"예매완료".equals(reservation.getStatus())) {
             System.out.println("⚠️ 아직 예약이 완료되지 않아 예매 취소를 진행할 수 없습니다.\n");
             return;

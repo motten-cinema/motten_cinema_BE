@@ -3,6 +3,8 @@ package command.print;
 
 import command.*;
 
+import java.io.IOException;
+
 import static command.util.ConsoleUtil.printLine;
 
 public class MainViewImpl {
@@ -27,8 +29,20 @@ public class MainViewImpl {
                 """);
 
         try {
-            System.in.read();
-        } catch (Exception e) {
+            int input;
+            boolean entered = false;
+            while (!entered) {
+                input = System.in.read();
+                if (input == '\n' || input == '\r') {
+                    entered = true;
+                } else {
+                    while (System.in.available() > 0) {
+                        System.in.read();
+                    }
+                    System.out.println("\u001B[31m ENTER 키만 눌러주세요!\u001B[0m");
+                }
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
