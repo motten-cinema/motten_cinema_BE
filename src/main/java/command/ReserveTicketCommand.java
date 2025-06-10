@@ -41,7 +41,7 @@ public class ReserveTicketCommand implements Command {
     public void execute() {
         ReservationViewImpl.printMovieHeader();
         printLine();
-
+        MovieViewImpl.printMovieList();
         System.out.println("1. 📖 상세보기");
         System.out.println("2. 🎫 예매 바로 진행");
         System.out.println("[Q] 🏠 홈으로");
@@ -60,7 +60,6 @@ public class ReserveTicketCommand implements Command {
     }
 
     private void startDetailView() {
-            MovieViewImpl.printMovieList(); // 영화 목록 출력
 
                     // 영화 ID 입력
                     String idInput = InputUtil.nextInput("🎬 상세보기를 원하시는 영화의 ID를 입력해주세요\n" +

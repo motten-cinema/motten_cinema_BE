@@ -19,14 +19,11 @@ public class MovieViewImpl {
         try {
                 List<MovieVO> list = service.getList();
 
-                printLine();
-                System.out.println("◉ ◉ ◉ ◉  🎟 MOVIE RESERVATION  ◉ ◉ ◉ ◉");
-                printLine();
                 for (MovieVO m : list) {
                     System.out.printf("ID: %-2s | %-10s | %-5s | ⭐ %.1f%n",
                             m.getMovieId(), m.getTitle(), m.getGenre(), m.getRating());
                 }
-
+                printLine();
         } catch (Exception e) {
             System.out.println("⚠️ 영화 목록을 불러오는 중 오류 발생: " + e.getMessage());
         }
@@ -56,4 +53,89 @@ public class MovieViewImpl {
         System.out.println("📅 개봉일: " + m.getReleaseDate());
         System.out.println("------------------------------------------");
     }
+    public static void printSortMenu() {
+        printLine();
+        System.out.println("◉ ◉ ◉  🧾 VIEW MOVIE  ◉ ◉ ◉");
+        printLine();
+        System.out.println("원하시는 메뉴 번호를 입력해주세요");
+        System.out.println("1. \uD83D\uDD0E 별점 순 정렬");
+        System.out.println("2. ❌ 장르 별 필터");
+        System.out.println("\n[Q]🏠 홈으로");
+        System.out.print("👉 입력: ");
+    }
+    public static void printRatingSortMenu() {
+        printLine();
+        System.out.println("◉ ◉ ◉ ◉  📊 MOVIE RATING SORT   ◉ ◉ ◉ ◉");
+        printLine();
+        System.out.println("🎬 영화 목록을 평점 기준으로 정렬합니다.\n");
+        System.out.println("1. 📈 높은 평점 순");
+        System.out.println("2. 📉 낮은 평점 순");
+        System.out.print("\n👉 정렬 방식을 선택해주세요: ");
+    }
+
+    public static void printSortedMovies(boolean highToLow) {
+        try {
+            List<MovieVO> list = service.getList();
+            list.sort((m1, m2) -> {
+                if (highToLow) return Double.compare(m2.getRating(), m1.getRating());
+                else return Double.compare(m1.getRating(), m2.getRating());
+            });
+
+            printLine();
+            if (highToLow) {
+                System.out.println("◉ ◉ ◉  📈 SORTED BY HIGH RATING  ◉ ◉ ◉");
+            } else {
+                System.out.println("◉ ◉ ◉  📉 SORTED BY LOW RATING  ◉ ◉ ◉");
+            }
+            printLine();
+            System.out.println("ID   | 제목                      | 평점");
+            printLine();
+            for (MovieVO m : list) {
+                System.out.printf("%-4d | %-25s | ⭐ %.1f%n", m.getMovieId(), m.getTitle(), m.getRating());
+            }
+            printLine();
+        } catch (Exception e) {
+            System.out.println("⚠️ 영화 정렬 중 오류 발생: " + e.getMessage());
+        }
+    }
+
+    public static void printGenreMenu() {
+        printLine();
+        System.out.println("◉ ◉ ◉ ◉ ◉  🎞 GENRE FILTER  ◉ ◉ ◉ ◉ ◉");
+        printLine();
+        System.out.println("📂 장르를 선택해주세요:\n");
+        System.out.println("1. 정치       2. 스릴러");
+        System.out.println("3. 범죄       4. 액션");
+        System.out.println("5. 멜로       6. 스포츠");
+        System.out.println("7. 애니메이션   8. 코미디");
+        System.out.print("\n👉 입력: ");
+    }
+
+    public static void printFilteredByGenre(String genre) {
+        try {
+            List<MovieVO> list = service.getList();
+            List<MovieVO> filtered = list.stream()
+                    .filter(m -> m.getGenre().equalsIgnoreCase(genre))
+                    .toList();
+
+            printLine();
+            System.out.printf("◉ ◉ ◉ ◉ ◉  💥 %s MOVIES  ◉ ◉ ◉ ◉ ◉%n", genre.toUpperCase());
+            printLine();
+            System.out.println("ID   | 제목                      | 평점");
+            printLine();
+
+            if (filtered.isEmpty()) {
+                System.out.println("해당 장르의 영화가 없습니다.");
+            } else {
+                for (MovieVO m : filtered) {
+                    System.out.printf("%-4d | %-25s | ⭐ %.1f%n", m.getMovieId(), m.getTitle(), m.getRating());
+                }
+            }
+
+            printLine();
+        } catch (Exception e) {
+            System.out.println("⚠️ 장르 필터링 중 오류 발생: " + e.getMessage());
+        }
+    }
+
 }
