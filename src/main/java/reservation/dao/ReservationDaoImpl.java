@@ -1,6 +1,7 @@
 package reservation.dao;
 
 import database.JDBCUtil;
+import movie.domain.MovieVO;
 import reservation.domain.ReservationVO;
 
 import java.io.*;
@@ -55,28 +56,32 @@ public class ReservationDaoImpl implements ReservationDao {
     return null; // 조회 결과 없을 경우
   }
 
+  private ReservationVO map(ResultSet rs) throws SQLException {
+    ReservationVO reservation = new ReservationVO();
+    reservation.setReservationId(rs.getString("reservation_id"));
+    reservation.setScheduleId(rs.getInt("schedule_id"));
+    reservation.setTotalPerson(rs.getInt("total_person"));
+    reservation.setTotalPrice(rs.getInt("total_price"));
+    reservation.setReservationTime(rs.getTimestamp("reservation_time"));
+    reservation.setStatus(rs.getString("status"));
+    return reservation;
+  }
+
   @Override
   public List<ReservationVO> findAll() {
-    List<ReservationVO> list = new ArrayList<>();
-    try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
-      String line;
-      while ((line = reader.readLine()) != null) {
-        String[] tokens = line.split(",");
-        if (tokens.length < 6) continue;
-
-        list.add(new ReservationVO(
-          tokens[0],
-          Integer.parseInt(tokens[1]),
-          Integer.parseInt(tokens[2]),
-          Integer.parseInt(tokens[3]),
-          Timestamp.valueOf(tokens[4]),
-          tokens[5]
-        ));
+    String sql = "SELECT * FROM reservation";
+    List<ReservationVO> reservationList = new ArrayList<>();
+    try (Connection conn = JDBCUtil.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+      while (rs.next()) {
+        reservationList.add(map(rs));
       }
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
     }
-    return list;
+
+    return reservationList;
   }
 
   @Override

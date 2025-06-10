@@ -12,6 +12,9 @@ public interface ReservationService {
   // 예매 정보 저장
   void insertReservation(ReservationVO reservationVO);
 
+  // 예매 목록 조회
+  List<ReservationVO> getReservations();
+
   // 예매 정보 조회
   ReservationInfoVO getReservationById(String reservationId, int scheduleId);
 

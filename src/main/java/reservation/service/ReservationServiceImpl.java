@@ -19,6 +19,8 @@ import seat.dao.SeatDaoImpl;
 import seat.domain.ReservationSeatVO;
 import seat.domain.SeatVO;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +35,18 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void insertReservation(ReservationVO reservationVO) {
         reservationDao.save(reservationVO);
+    }
+
+    @Override
+    public List<ReservationVO> getReservations() {
+        List<ReservationVO> reservations = new ArrayList<>();
+        for(ReservationVO reservation : reservationDao.findAll()) {
+            if(reservation.getStatus().equals("예매완료")) {
+                reservations.add(reservation);
+            }
+        }
+
+        return reservations;
     }
 
     @Override
