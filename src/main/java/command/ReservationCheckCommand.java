@@ -3,9 +3,13 @@ package command;
 import command.util.InputUtil;
 import command.print.ReservationManagementViewImpl;
 import lombok.RequiredArgsConstructor;
+import movie.domain.MovieVO;
+import movie.service.MovieService;
+import movie.service.MovieServiceImpl;
 import reservation.domain.ReservationInfoVO;
 import reservation.domain.ReservationVO;
 import reservation.service.ReservationService;
+import reservation.service.ReservationServiceImpl;
 
 import java.util.List;
 
@@ -22,6 +26,8 @@ public class ReservationCheckCommand implements Command {
         while (true) {
             printLine();
             System.out.println("◉ ◉ ◉  🧾 RESERVATION MANAGEMENT  ◉ ◉ ◉");
+            printLine();
+            printReservationList();
             printLine();
             System.out.println("원하시는 메뉴 번호를 입력해주세요");
             System.out.println("1. 🔎 예매 확인");
@@ -40,6 +46,23 @@ public class ReservationCheckCommand implements Command {
                 default -> System.out.println("❗ 올바른 메뉴 번호를 입력해주세요.");
             }
         }
+    }
+
+    private static final ReservationService service = new ReservationServiceImpl();
+
+    public static void printReservationList() {
+        try {
+            List<ReservationVO> list = service.getReservations();
+
+            for (ReservationVO m : list) {
+                System.out.printf("ID: %-2s | %-10s%n",
+                        m.getReservationId(), m.getStatus());
+            }
+            printLine();
+        } catch (Exception e) {
+            System.out.println("⚠️ 예약 목록을 불러오는 중 오류 발생: " + e.getMessage());
+        }
+
     }
 
     private void checkReservation() {
